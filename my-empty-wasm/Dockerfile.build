@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dfx using official installer (non-interactive)
+# Install dfx using direct download (avoiding interactive installer)
 RUN DFX_VERSION=0.27.0 && \
-    curl -fsSL https://internetcomputer.org/install.sh | bash -s -- --version "$DFX_VERSION" --no-modify-path --yes && \
-    export PATH="$HOME/.local/share/dfx/bin:$PATH"
+    curl -fsSL "https://github.com/dfinity/sdk/releases/download/${DFX_VERSION}/dfx-${DFX_VERSION}-x86_64-linux.tar.gz" | tar -xz -C /usr/local/bin/ && \
+    chmod +x /usr/local/bin/dfx
 
 # Create non-root user
 RUN groupadd -g 1001 dfxuser && useradd -r -u 1001 -g dfxuser dfxuser
@@ -22,9 +22,6 @@ COPY --chown=dfxuser:dfxuser . .
 # Change ownership and switch to non-root user
 RUN chown -R dfxuser:dfxuser /app
 USER dfxuser
-
-# Set PATH for dfx
-ENV PATH="/root/.local/share/dfx/bin:$PATH"
 
 # Build the canister
 RUN dfx build --ic
@@ -38,8 +35,8 @@ RUN addgroup -g 1001 -S appuser && adduser -S appuser -u 1001
 RUN mkdir -p /wasm && chown -R appuser:appuser /wasm
 
 # Copy built WASM files from builder stage
-COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm /wasm/
-COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.did /wasm/
+COPY --from=builder --chown=appuser:appuser /app/.dfx/ic/canisters/my-empty-wasm/my-empty-wasm.wasm /wasm/
+COPY --from=builder --chown=appuser:appuser /app/.dfx/ic/canisters/my-empty-wasm/my-empty-wasm.did /wasm/
 
 USER appuser
 
