@@ -45,12 +45,14 @@ RUN dfx identity new default --storage-mode=plaintext || true
 # Switch back to root for build (to access cargo)
 USER root
 
-# Try dfx approach first, fallback to cargo if replica fails
-RUN (dfx start --background --clean && \
+# Try dfx approach first, fallback to cargo if replica fails  
+RUN (source /root/.cargo/env && rustup default stable && \
+     dfx start --background --clean && \
      dfx canister create my-empty-wasm && \
      dfx build && \
      dfx stop) || \
     (echo "dfx replica failed, falling back to cargo build..." && \
+     source /root/.cargo/env && rustup default stable && \
      cd src/my-empty-wasm && \
      cargo build --target wasm32-unknown-unknown --release && \
      mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
