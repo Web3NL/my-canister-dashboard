@@ -31,10 +31,11 @@ USER dfxuser
 # Set environment variables for dfx
 ENV HOME=/home/dfxuser
 ENV DFX_TELEMETRY_DISABLED=1
+ENV DFX_WARNING=-mainnet_plaintext_identity
 ENV PATH="/root/.cargo/bin:$PATH"
 
 # Initialize dfx identity and build the canister
-RUN dfx identity new default --disable-encryption || true
+RUN dfx identity new default --storage-mode=plaintext || true
 RUN dfx build --ic
 
 FROM alpine:3.19@sha256:e5d0aea7f7d2954678a9a6269ca2d06e06591881161961ea59e974dff3f12377
