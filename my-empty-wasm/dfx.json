@@ -1,0 +1,9 @@
+{
+    "canisters": {
+        "my-empty-wasm": {
+            "candid": "../candid/my-canister.did",
+            "package": "my-empty-wasm",
+            "type": "rust"
+        }
+    }
+}

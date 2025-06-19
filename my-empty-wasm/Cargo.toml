@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/my-empty-wasm"
+]
+resolver = "2"

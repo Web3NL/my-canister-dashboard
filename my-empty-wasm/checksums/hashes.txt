@@ -1,0 +1,5 @@
+# WASM Build Hashes - 2025-06-19 18:50:33 UTC
+# SHA256 checksums for deterministic build verification
+
+## SHA256 checksums:
+6ab29f7a1c3cec05d17d6c93235c4df80ca2d422df6100a9857de4ab5debc94c  ./my-empty-wasm.wasm

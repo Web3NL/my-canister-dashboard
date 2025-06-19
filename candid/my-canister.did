@@ -1,0 +1,26 @@
+type HttpRequest = record {
+    method : text;
+    url : text;
+    headers : vec record { text; text };
+    body : vec nat8
+};
+
+type HttpResponse = record {
+    status_code : nat16;
+    headers : vec record { text; text };
+    body : vec nat8
+};
+
+type UpdateAlternativeOriginsArg = variant {
+    AddAlternativeOrigin : text;
+    RemoveAlternativeOrigin : text;
+};
+type UpdateAlternativeOriginsResult = variant {
+    Ok;
+    Err : text;
+};
+
+service : {
+    "http_request" : (HttpRequest) -> (HttpResponse) query;
+    "update_alternative_origins" : (UpdateAlternativeOriginsArg) -> (UpdateAlternativeOriginsResult)
+}

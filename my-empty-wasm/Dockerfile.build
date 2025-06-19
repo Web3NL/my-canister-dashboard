@@ -1,0 +1,46 @@
+FROM ubuntu:22.04 AS builder
+
+WORKDIR /app
+
+# Install dependencies and dfx
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install dfx using official installer (non-interactive)
+RUN DFX_VERSION=0.27.0 && \
+    curl -fsSL https://internetcomputer.org/install.sh | bash -s -- --version "$DFX_VERSION" --no-modify-path --yes && \
+    export PATH="$HOME/.local/share/dfx/bin:$PATH"
+
+# Create non-root user
+RUN groupadd -g 1001 dfxuser && useradd -r -u 1001 -g dfxuser dfxuser
+
+# Copy project files
+COPY --chown=dfxuser:dfxuser . .
+
+# Change ownership and switch to non-root user
+RUN chown -R dfxuser:dfxuser /app
+USER dfxuser
+
+# Set PATH for dfx
+ENV PATH="/root/.local/share/dfx/bin:$PATH"
+
+# Build the canister
+RUN dfx build --ic
+
+FROM alpine:3.19@sha256:e5d0aea7f7d2954678a9a6269ca2d06e06591881161961ea59e974dff3f12377
+
+# Create non-root user in final stage
+RUN addgroup -g 1001 -S appuser && adduser -S appuser -u 1001
+
+# Create wasm directory with proper ownership
+RUN mkdir -p /wasm && chown -R appuser:appuser /wasm
+
+# Copy built WASM files from builder stage
+COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm /wasm/
+COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.did /wasm/
+
+USER appuser
+
+CMD ["ls", "-la", "/wasm"]

@@ -1,0 +1,25 @@
+[package]
+name = "my-empty-wasm"
+version = "0.1.0"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = "0.10.14"
+ic-cdk = "0.17"
+ic-cdk-timers = "0.11" # Feel free to remove this dependency if you don't need timers
+ic-http-certification = "3.0.3"
+ic-asset-certification = "3.0.3"
+ic-certification = "3.0"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0"
+base64 = "0.21"
+serde_cbor = "0.11"
+my-canister-dashboard = { path = "../../../canister-dashboard-rs" }
+
+[package.metadata.rustfmt]
+edition = "2024"

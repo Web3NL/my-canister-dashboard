@@ -1,0 +1,8 @@
+# Build Hashes - 2025-06-19 18:50:31 UTC
+# SHA256 checksums for deterministic build verification
+
+## SHA256 checksums:
+32a59b073ce370b904305f5878a02e4ded88b7b65defdcb054da2ef19a9c51cd  ./ii-alternative-origins
+38aab7ec9eeba7dc19ba96629825ab13b524e5b2beaafb24930f8c9566fe7ab1  ./canister-dashboard.html
+80aa77a2d0997add63362b3a089aec7b44213b887718ccf777c07671f4a98254  ./canister-dashboard-MlD2Zc6y.js
+c8c69bdc4e2b286fbd5837cc8281089398153ea718574a97c1495acd125ef789  ./style-CQdQslat.css

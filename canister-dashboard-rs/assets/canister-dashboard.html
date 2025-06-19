@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://identity.internetcomputer.org https://*.icp0.io https://icp0.io https://icp-api.io https://*.icp-api.io http://localhost:* http://*.localhost:*"
+    />
+    <title>My Canister Dashboard</title>
+    <script type="module" crossorigin src="/canister-dashboard/canister-dashboard-MlD2Zc6y.js"></script>
+    <link rel="stylesheet" crossorigin href="/canister-dashboard/style-CQdQslat.css">
+  </head>
+
+  <body>
+    <div id="loading-overlay" class="hidden">
+      <div>Loading...</div>
+    </div>
+
+    <div class="container">
+      <h1>Canister Dashboard</h1>
+
+      <div id="auth-section"></div>
+
+      <div id="authenticated-content" class="hidden">
+        <div id="balance-section"></div>
+        <div id="status-section"></div>
+        <div id="controllers-section"></div>
+        <div id="alternative-origins-section"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
