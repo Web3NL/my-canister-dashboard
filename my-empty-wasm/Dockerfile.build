@@ -46,17 +46,17 @@ RUN dfx identity new default --storage-mode=plaintext || true
 USER root
 
 # Try dfx approach first, fallback to cargo if replica fails  
-RUN (source /root/.cargo/env && rustup default stable && \
+RUN bash -c "(. /root/.cargo/env && rustup default stable && \
      dfx start --background --clean && \
      dfx canister create my-empty-wasm && \
      dfx build && \
      dfx stop) || \
-    (echo "dfx replica failed, falling back to cargo build..." && \
-     source /root/.cargo/env && rustup default stable && \
+    (echo 'dfx replica failed, falling back to cargo build...' && \
+     . /root/.cargo/env && rustup default stable && \
      cd src/my-empty-wasm && \
      cargo build --target wasm32-unknown-unknown --release && \
      mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
-     cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)
+     cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)"
 
 FROM alpine:3.19@sha256:e5d0aea7f7d2954678a9a6269ca2d06e06591881161961ea59e974dff3f12377
 
