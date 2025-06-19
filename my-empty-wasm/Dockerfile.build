@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Add WASM target for Rust (do this as root before switching users)
+# Set default toolchain and add WASM target
+RUN rustup default stable
 RUN rustup target add wasm32-unknown-unknown
 
 # Install dfx using direct download (avoiding interactive installer)
