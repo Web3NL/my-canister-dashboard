@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     build-essential \
+    libunwind8 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Rust toolchain
@@ -47,7 +48,7 @@ RUN (dfx start --background --clean && \
      dfx stop) || \
     (echo "dfx replica failed, falling back to cargo build..." && \
      cd src/my-empty-wasm && \
-     cargo build --target wasm32-unknown-unknown --release && \
+     /root/.cargo/bin/cargo build --target wasm32-unknown-unknown --release && \
      mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
      cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)
 
