@@ -28,18 +28,21 @@ RUN groupadd -g 1001 dfxuser && useradd -r -u 1001 -g dfxuser -m -d /home/dfxuse
 # Copy project files
 COPY --chown=dfxuser:dfxuser . .
 
-# Change ownership and switch to non-root user
+# Change ownership 
 RUN chown -R dfxuser:dfxuser /app
-USER dfxuser
 
-# Set environment variables for dfx
-ENV HOME=/home/dfxuser
+# Set environment variables for dfx (while still root for build)
 ENV DFX_TELEMETRY_DISABLED=1
 ENV DFX_WARNING=-mainnet_plaintext_identity
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Initialize dfx identity
+# Initialize dfx identity as dfxuser
+USER dfxuser
+ENV HOME=/home/dfxuser
 RUN dfx identity new default --storage-mode=plaintext || true
+
+# Switch back to root for build (to access cargo)
+USER root
 
 # Try dfx approach first, fallback to cargo if replica fails
 RUN (dfx start --background --clean && \
@@ -48,7 +51,7 @@ RUN (dfx start --background --clean && \
      dfx stop) || \
     (echo "dfx replica failed, falling back to cargo build..." && \
      cd src/my-empty-wasm && \
-     /root/.cargo/bin/cargo build --target wasm32-unknown-unknown --release && \
+     cargo build --target wasm32-unknown-unknown --release && \
      mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
      cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)
 
