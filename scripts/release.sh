@@ -186,7 +186,18 @@ echo -e "${GREEN}✅ Prerelease checks passed${NC}"
 # Commit changes
 echo -e "${BLUE}💾 Committing changes...${NC}"
 git add "$FRONTEND_PACKAGE_JSON" "$RUST_CARGO_TOML" "$WASM_CARGO_TOML"
-git commit -m "Bump version to $NEW_VERSION"
+
+# Also commit any build artifacts that were updated by prerelease.sh
+if [ -n "$(git status --porcelain)" ]; then
+    echo -e "${YELLOW}📦 Adding build artifacts updated by prerelease checks...${NC}"
+    git add -A
+fi
+
+git commit -m "Bump version to $NEW_VERSION
+
+- Update version in all subprojects
+- Update build artifacts and checksums
+- Update lock files"
 
 echo -e "${GREEN}✅ Changes committed${NC}"
 
