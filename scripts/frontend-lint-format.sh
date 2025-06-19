@@ -6,7 +6,7 @@
 set -e
 
 # Ensure we're in the project root
-if [ ! -f "package.json" ] || [ ! -d "canister-dashboard-frontend" ]; then
+if [ ! -d "canister-dashboard-frontend" ] || [ ! -d "scripts" ]; then
     echo "This script must be run from the project root directory"
     exit 1
 fi

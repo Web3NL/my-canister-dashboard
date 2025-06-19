@@ -1,5 +1,5 @@
-use crate::asset_configs;
 use crate::ASSETS_DIR;
+use crate::asset_configs;
 use candid::CandidType;
 use ic_asset_certification::{Asset, AssetRouter};
 use ic_cdk::api::set_certified_data;
@@ -197,12 +197,16 @@ mod tests {
         let json = r#"{"alternativeOrigins": ["http://localhost:5173", "https://example.com"]}"#;
         let origins = AlternativeOrigins::from_json(json).unwrap();
         assert_eq!(origins.alternative_origins.len(), 2);
-        assert!(origins
-            .alternative_origins
-            .contains(&"http://localhost:5173".to_string()));
-        assert!(origins
-            .alternative_origins
-            .contains(&"https://example.com".to_string()));
+        assert!(
+            origins
+                .alternative_origins
+                .contains(&"http://localhost:5173".to_string())
+        );
+        assert!(
+            origins
+                .alternative_origins
+                .contains(&"https://example.com".to_string())
+        );
     }
 
     #[test]
@@ -239,9 +243,11 @@ mod tests {
         // Removing existing origin should return true
         assert!(origins.remove_origin("http://localhost:5173"));
         assert_eq!(origins.alternative_origins.len(), 1);
-        assert!(!origins
-            .alternative_origins
-            .contains(&"http://localhost:5173".to_string()));
+        assert!(
+            !origins
+                .alternative_origins
+                .contains(&"http://localhost:5173".to_string())
+        );
 
         // Removing non-existing origin should return false
         assert!(!origins.remove_origin("http://nonexistent.com"));

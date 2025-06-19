@@ -14,6 +14,6 @@ echo "🦀 Rust lint..."
 ./scripts/rust-lint-format.sh
 
 echo "⚙️  WASM deterministic build..."
-npm run build:wasm-deterministic
+cd my-empty-wasm && ./build-deterministic.sh && cd ..
 
 echo "✅ Prerelease build complete!"

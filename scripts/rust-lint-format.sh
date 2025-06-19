@@ -6,14 +6,14 @@
 set -e
 
 # Ensure we're in the project root
-if [ ! -f "package.json" ] || [ ! -d "canister-dashboard-rs" ]; then
+if [ ! -d "canister-dashboard-rs" ] || [ ! -d "scripts" ]; then
     echo "This script must be run from the project root directory"
     exit 1
 fi
 
 cd canister-dashboard-rs
 
-cargo fmt --check
+cargo fmt
 cargo clippy --all-targets --all-features -- -D warnings
 cargo check --all-targets --all-features
 cargo test

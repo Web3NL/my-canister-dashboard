@@ -1,13 +1,13 @@
 use ic_asset_certification::{Asset, AssetRouter};
 use ic_cdk::api::set_certified_data;
-use include_dir::{include_dir, Dir};
+use include_dir::{Dir, include_dir};
 
 mod alternative_origins;
 mod asset_configs;
 
 // Re-export only the essential types and main function
 pub use alternative_origins::{
-    update_alternative_origins, UpdateAlternativeOriginsArg, UpdateAlternativeOriginsResult,
+    UpdateAlternativeOriginsArg, UpdateAlternativeOriginsResult, update_alternative_origins,
 };
 
 static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
