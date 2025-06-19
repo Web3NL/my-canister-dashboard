@@ -19,7 +19,7 @@ mkdir -p "$CHECKSUMS_DIR"
 
 # Build container with build files only
 echo "📦 Building Docker image..."
-docker build -f Dockerfile.build -t "$CONTAINER_NAME" .
+docker build --platform linux/amd64 -f Dockerfile.build -t "$CONTAINER_NAME" .
 
 # Create temporary container to extract files
 echo "📋 Extracting build files..."

@@ -34,7 +34,7 @@ echo "===================================="
 # Build frontend Docker image
 cd canister-dashboard-frontend
 FRONTEND_CONTAINER_NAME="github-frontend-builder"
-docker build -f Dockerfile.build -t "$FRONTEND_CONTAINER_NAME" .
+docker build --platform linux/amd64 -f Dockerfile.build -t "$FRONTEND_CONTAINER_NAME" .
 
 # Extract frontend build artifacts
 echo "📋 Extracting frontend build files..."
@@ -64,7 +64,7 @@ echo "================================="
 # Build WASM Docker image (from parent directory to include canister-dashboard-rs dependency)
 cd ..
 WASM_CONTAINER_NAME="github-wasm-builder"
-docker build -f my-empty-wasm/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
+docker build --platform linux/amd64 -f my-empty-wasm/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
 
 # Extract WASM build artifacts
 echo "📋 Extracting WASM build files..."

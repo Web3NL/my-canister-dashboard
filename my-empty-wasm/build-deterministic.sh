@@ -16,7 +16,7 @@ mkdir -p "$CHECKSUMS_DIR"
 # Build using Docker for deterministic builds
 CONTAINER_NAME="my-empty-wasm-builder"
 echo "📦 Building with Docker using pinned dfx image..."
-cd .. && docker build -f my-empty-wasm/Dockerfile.build -t "$CONTAINER_NAME" . && cd my-empty-wasm
+cd .. && docker build --platform linux/amd64 -f my-empty-wasm/Dockerfile.build -t "$CONTAINER_NAME" . && cd my-empty-wasm
 
 # Extract WASM files from Docker container
 echo "📋 Extracting WASM files from container..."
