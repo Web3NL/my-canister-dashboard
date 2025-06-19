@@ -42,7 +42,6 @@ cd "$TEMP_FRONTEND_DIR"
 rm -f main.js style.css
 
 {
-    echo "# Build Hashes - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
     echo "# SHA256 checksums for deterministic build verification"
     echo ""
     echo "## SHA256 checksums:"
@@ -71,7 +70,6 @@ echo "🔍 Calculating WASM file hashes..."
 cd "$TEMP_WASM_DIR"
 
 {
-    echo "# WASM Build Hashes - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
     echo "# SHA256 checksums for deterministic build verification"
     echo ""
     echo "## SHA256 checksums:"

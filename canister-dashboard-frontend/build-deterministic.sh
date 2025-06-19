@@ -34,7 +34,6 @@ echo "🔍 Calculating file hashes..."
 
 # Generate hash manifest
 {
-    echo "# Build Hashes - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
     echo "# SHA256 checksums for deterministic build verification"
     echo ""
     
