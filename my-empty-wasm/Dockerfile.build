@@ -53,8 +53,7 @@ RUN bash -c "(. /root/.cargo/env && rustup default stable && \
      dfx stop) || \
     (echo 'dfx replica failed, falling back to cargo build...' && \
      . /root/.cargo/env && rustup default stable && \
-     cd src/my-empty-wasm && \
-     cargo build --target wasm32-unknown-unknown --release && \
+     cargo build --target wasm32-unknown-unknown --release -p my-empty-wasm && \
      mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
      cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)"
 
