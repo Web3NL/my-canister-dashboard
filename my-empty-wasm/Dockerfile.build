@@ -1,4 +1,6 @@
-FROM ubuntu:22.04 AS builder
+# Use pinned Ubuntu image and install dfx 0.27.0 for deterministic builds
+# To update SHA256: docker pull ubuntu:24.04 && docker inspect ubuntu:24.04 | grep -A1 RepoDigests
+FROM ubuntu:24.04@sha256:e3f92abc0967a6c19d0dfa2d55838833e947b9d74edbcb0113e48535ad4be12a AS builder
 
 WORKDIR /app
 
@@ -7,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     build-essential \
-    libunwind8 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Rust toolchain
@@ -18,45 +19,27 @@ ENV PATH="/root/.cargo/bin:$PATH"
 RUN rustup default stable
 RUN rustup target add wasm32-unknown-unknown
 
-# Install dfx using direct download (avoiding interactive installer)
+# Install dfx 0.27.0 using specific version
 RUN DFX_VERSION=0.27.0 && \
     curl -fsSL "https://github.com/dfinity/sdk/releases/download/${DFX_VERSION}/dfx-${DFX_VERSION}-x86_64-linux.tar.gz" | tar -xz -C /usr/local/bin/ && \
     chmod +x /usr/local/bin/dfx
 
-# Create non-root user with proper home directory
-RUN groupadd -g 1001 dfxuser && useradd -r -u 1001 -g dfxuser -m -d /home/dfxuser dfxuser
-
-# Copy project files
-COPY --chown=dfxuser:dfxuser . .
-
-# Change ownership 
-RUN chown -R dfxuser:dfxuser /app
-
-# Set environment variables for dfx (while still root for build)
+# Set environment variables for dfx
 ENV DFX_TELEMETRY_DISABLED=1
 ENV DFX_WARNING=-mainnet_plaintext_identity
-ENV PATH="/root/.cargo/bin:$PATH"
 
-# Initialize dfx identity as dfxuser
-USER dfxuser
-ENV HOME=/home/dfxuser
-RUN dfx identity new default --storage-mode=plaintext || true
+# Copy project files (build context is now parent directory)
+COPY canister-dashboard-rs /app/canister-dashboard-rs
+COPY my-empty-wasm /app/my-empty-wasm
+WORKDIR /app/my-empty-wasm
 
-# Switch back to root for build (to access cargo)
-USER root
+# Build the canister using cargo (more deterministic than dfx)
+RUN cargo build --target wasm32-unknown-unknown --release --package my-empty-wasm && \
+    mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
+    cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm
 
-# Try dfx approach first, fallback to cargo if replica fails  
-RUN bash -c "(. /root/.cargo/env && rustup default stable && \
-     dfx start --background --clean && \
-     dfx canister create my-empty-wasm && \
-     dfx build && \
-     dfx stop) || \
-    (echo 'dfx replica failed, falling back to cargo build...' && \
-     . /root/.cargo/env && rustup default stable && \
-     cargo build --target wasm32-unknown-unknown --release -p my-empty-wasm && \
-     mkdir -p /app/.dfx/local/canisters/my-empty-wasm && \
-     cp target/wasm32-unknown-unknown/release/my_empty_wasm.wasm /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm)"
-
+# Use SHA256-pinned Alpine image for deterministic final stage
+# To update: docker pull alpine:3.19 && docker inspect alpine:3.19 | grep -A1 RepoDigests
 FROM alpine:3.19@sha256:e5d0aea7f7d2954678a9a6269ca2d06e06591881161961ea59e974dff3f12377
 
 # Create non-root user in final stage
@@ -67,7 +50,6 @@ RUN mkdir -p /wasm && chown -R appuser:appuser /wasm
 
 # Copy built WASM files from builder stage  
 COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.wasm /wasm/
-COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-empty-wasm/my-empty-wasm.did /wasm/
 
 USER appuser
 

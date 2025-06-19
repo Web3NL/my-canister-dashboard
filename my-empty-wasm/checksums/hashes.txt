@@ -1,4 +1,4 @@
 # SHA256 checksums for deterministic build verification
 
 ## SHA256 checksums:
-6ab29f7a1c3cec05d17d6c93235c4df80ca2d422df6100a9857de4ab5debc94c  ./my-empty-wasm.wasm
+1bc037f1772cc3e83f51871f56bd0a7195964cec8400005fdcd513ab8c25f343  ./my-empty-wasm.wasm

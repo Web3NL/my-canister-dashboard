@@ -5,6 +5,13 @@ set -e
 echo "🏗️  GitHub Deterministic Build and Hash Verification"
 echo "=================================================="
 
+# Run linting and formatting first
+echo "🔍 Running frontend lint and format..."
+./scripts/frontend-lint-format.sh
+
+echo "🦀 Running rust lint and format..."
+./scripts/rust-lint-format.sh
+
 # Temporary directories for GitHub build artifacts
 TEMP_FRONTEND_DIR="/tmp/github-frontend-build"
 TEMP_WASM_DIR="/tmp/github-wasm-build"
@@ -54,10 +61,10 @@ echo ""
 echo "🦀 Building WASM Docker Image..."
 echo "================================="
 
-# Build WASM Docker image
-cd ../my-empty-wasm
+# Build WASM Docker image (from parent directory to include canister-dashboard-rs dependency)
+cd ..
 WASM_CONTAINER_NAME="github-wasm-builder"
-docker build -f Dockerfile.build -t "$WASM_CONTAINER_NAME" .
+docker build -f my-empty-wasm/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
 
 # Extract WASM build artifacts
 echo "📋 Extracting WASM build files..."
@@ -84,7 +91,7 @@ echo "===================="
 
 # Compare frontend hashes
 echo "Verifying frontend hashes..."
-FRONTEND_COMMITTED_HASHES="../canister-dashboard-rs/checksums/hashes.txt"
+FRONTEND_COMMITTED_HASHES="canister-dashboard-frontend/checksums/hashes.txt"
 if [ ! -f "$FRONTEND_COMMITTED_HASHES" ]; then
     echo "❌ ERROR: Frontend committed hashes file not found: $FRONTEND_COMMITTED_HASHES"
     exit 1
@@ -112,7 +119,7 @@ fi
 
 # Compare WASM hashes
 echo "Verifying WASM hashes..."
-WASM_COMMITTED_HASHES="./checksums/hashes.txt"
+WASM_COMMITTED_HASHES="my-empty-wasm/checksums/hashes.txt"
 if [ ! -f "$WASM_COMMITTED_HASHES" ]; then
     echo "❌ ERROR: WASM committed hashes file not found: $WASM_COMMITTED_HASHES"
     exit 1

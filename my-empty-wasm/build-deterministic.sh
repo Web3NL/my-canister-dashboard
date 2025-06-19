@@ -13,19 +13,16 @@ rm -rf "$CHECKSUMS_DIR"
 mkdir -p "$WASM_DIR"
 mkdir -p "$CHECKSUMS_DIR"
 
-# Build locally for now (Docker version commented out due to architecture issues)
-echo "📦 Building locally with dfx..."
-dfx build --ic
+# Build using Docker for deterministic builds
+CONTAINER_NAME="my-empty-wasm-builder"
+echo "📦 Building with Docker using pinned dfx image..."
+cd .. && docker build -f my-empty-wasm/Dockerfile.build -t "$CONTAINER_NAME" . && cd my-empty-wasm
 
-# Copy WASM file to wasm directory
-echo "📋 Copying WASM file..."
-cp .dfx/ic/canisters/my-empty-wasm/my-empty-wasm.wasm "$WASM_DIR/"
-
-# TODO: Docker build approach (enable when dfx ARM64 Docker support is available)
-# docker build -f Dockerfile.build -t "$CONTAINER_NAME" .
-# TEMP_CONTAINER=$(docker create "$CONTAINER_NAME")
-# docker cp "$TEMP_CONTAINER:/wasm/." "$WASM_DIR/"
-# docker rm "$TEMP_CONTAINER"
+# Extract WASM files from Docker container
+echo "📋 Extracting WASM files from container..."
+TEMP_CONTAINER=$(docker create "$CONTAINER_NAME")
+docker cp "$TEMP_CONTAINER:/wasm/." "$WASM_DIR/"
+docker rm "$TEMP_CONTAINER"
 
 # Calculate hashes
 echo "🔍 Calculating file hashes..."
