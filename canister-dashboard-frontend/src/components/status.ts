@@ -10,9 +10,15 @@ class StatusManager {
     const managementApi = new ManagementApi();
     const status = await managementApi.getCanisterStatus();
 
-    const { statusText, memorySizeFormatted, cyclesFormatted, moduleHashHex } = this.formatStatusData(status);
+    const { statusText, memorySizeFormatted, cyclesFormatted, moduleHashHex } =
+      this.formatStatusData(status);
 
-    this.renderStatusContent(statusText, memorySizeFormatted, cyclesFormatted, moduleHashHex);
+    this.renderStatusContent(
+      statusText,
+      memorySizeFormatted,
+      cyclesFormatted,
+      moduleHashHex
+    );
   }
 
   private renderStatusSection(): void {
@@ -24,7 +30,12 @@ class StatusManager {
         `;
   }
 
-  private renderStatusContent(statusText: string, memorySizeFormatted: string, cyclesFormatted: string, moduleHashHex: string): void {
+  private renderStatusContent(
+    statusText: string,
+    memorySizeFormatted: string,
+    cyclesFormatted: string,
+    moduleHashHex: string
+  ): void {
     const statusContent = document.getElementById('status-content');
 
     statusContent!.innerHTML = `

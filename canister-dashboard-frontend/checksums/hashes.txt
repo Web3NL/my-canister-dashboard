@@ -1,7 +1,7 @@
 # SHA256 checksums for deterministic build verification
 
 ## SHA256 checksums:
+1a22cbd5a8212527b1f827c3992dd3abd8046e7bcb29206926fb721385ad7919  ./canister-dashboard-BMIkId--.js
 32a59b073ce370b904305f5878a02e4ded88b7b65defdcb054da2ef19a9c51cd  ./ii-alternative-origins
-38aab7ec9eeba7dc19ba96629825ab13b524e5b2beaafb24930f8c9566fe7ab1  ./canister-dashboard.html
-80aa77a2d0997add63362b3a089aec7b44213b887718ccf777c07671f4a98254  ./canister-dashboard-MlD2Zc6y.js
+67e0802b933928f36a126ccd2cf675b1499b568624fa5e63c5fef1ed98b97612  ./canister-dashboard.html
 c8c69bdc4e2b286fbd5837cc8281089398153ea718574a97c1495acd125ef789  ./style-CQdQslat.css
