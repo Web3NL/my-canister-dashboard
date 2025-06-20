@@ -1,5 +1,14 @@
 class AlternativeOriginsManager {
   async init(): Promise<void> {
+    this.renderAlternativeOriginsSection();
+
+    const origins = await this.fetchAlternativeOrigins();
+    const originsList = origins.map(origin => `<li>${origin}</li>`).join('');
+
+    this.renderAlternativeOriginsContent(originsList);
+  }
+
+  private renderAlternativeOriginsSection(): void {
     const alternativeOriginsSection = document.getElementById(
       'alternative-origins-section'
     );
@@ -8,14 +17,12 @@ class AlternativeOriginsManager {
             <h3>Alternative Origins</h3>
             <div id="alternative-origins-content">Loading...</div>
         `;
+  }
 
+  private renderAlternativeOriginsContent(originsList: string): void {
     const alternativeOriginsContent = document.getElementById(
       'alternative-origins-content'
     );
-
-    const origins = await this.fetchAlternativeOrigins();
-
-    const originsList = origins.map(origin => `<li>${origin}</li>`).join('');
 
     alternativeOriginsContent!.innerHTML = `
                 <div class="alternative-origins-info">
