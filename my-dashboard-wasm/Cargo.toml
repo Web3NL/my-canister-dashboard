@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "src/my-empty-wasm"
+    "src/my-dashboard-wasm"
 ]
 resolver = "2"
