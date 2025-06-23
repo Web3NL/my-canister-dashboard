@@ -1,6 +1,6 @@
 # Use pinned Ubuntu image and install dfx 0.27.0 for deterministic builds
 # To update SHA256: docker pull ubuntu:24.04 && docker inspect ubuntu:24.04 | grep -A1 RepoDigests
-FROM ubuntu:24.04@sha256:e3f92abc0967a6c19d0dfa2d55838833e947b9d74edbcb0113e48535ad4be12a AS builder
+FROM ubuntu:24.04@sha256:b59d21599a2b151e23eea5f6602f4af4d7d31c4e236d22bf0b62b86d2e386b8f AS builder
 
 WORKDIR /app
 
