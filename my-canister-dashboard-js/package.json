@@ -26,6 +26,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,json}\"",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run build",
+    "check:fix": "npm run lint:fix && npm run format && npm run typecheck && npm run build",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
@@ -39,7 +41,6 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.18.0",
-    "@types/node": "^22.10.2",
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
