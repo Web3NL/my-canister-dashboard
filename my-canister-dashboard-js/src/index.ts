@@ -1,8 +1,15 @@
 /**
- * A simple hello world function to demonstrate the package structure
- * @param name - The name to greet
- * @returns A greeting message
+ * My Canister Dashboard utilities for Internet Computer canisters
  */
-export function helloWorld(name = 'World'): string {
-  return `Hello, ${name}!`;
-}
+
+// Export the main class
+export { MyCanisterDashboard } from './dashboard';
+
+// Export types and interfaces
+export type {
+  CheckCyclesBalanceOptions,
+  CheckCyclesBalanceResult,
+} from './dashboard';
+
+// Export constants
+export { LOW_CYCLES_THRESHOLD } from './constants';
