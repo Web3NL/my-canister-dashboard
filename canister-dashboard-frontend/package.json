@@ -1,5 +1,5 @@
 {
-  "name": "my-canister-dashboard",
+  "name": "canister-dashboard-frontend",
   "version": "0.3.0-beta.2",
   "description": "Self-contained dashboard for Internet Computer canisters (BETA - not production ready)",
   "repository": "https://github.com/Web3NL/my-canister-dashboard/tree/main/canister-dashboard-frontend",
