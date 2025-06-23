@@ -2,7 +2,20 @@
   "name": "@web3nl/my-canister-dashboard",
   "version": "0.3.0-beta.3",
   "description": "Utility functions for canisters using My Canister Dashboard",
-  "repository": "https://github.com/Web3NL/my-canister-dashboard/tree/main/my-canister-dashboard-js",
+  "keywords": [
+    "internet-computer",
+    "canister",
+    "dfinity",
+    "ic",
+    "utilities"
+  ],
+  "author": "Web3NL",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Web3NL/my-canister-dashboard.git",
+    "directory": "my-canister-dashboard-js"
+  },
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -19,27 +32,23 @@
   ],
   "scripts": {
     "build": "tsc",
+    "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.{ts,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,json}\"",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run build",
     "check:fix": "npm run lint:fix && npm run format && npm run typecheck && npm run build",
-    "publish:npm": "./scripts/publish-npm.sh",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build",
+    "publish:npm": "./scripts/publish-npm.sh"
   },
-  "keywords": [
-    "internet-computer",
-    "canister",
-    "dfinity",
-    "ic",
-    "utilities"
-  ],
-  "author": "Web3NL",
-  "license": "MIT",
+  "dependencies": {
+    "@dfinity/agent": "^2.4.1",
+    "@dfinity/ic-management": "^6.2.0",
+    "@dfinity/principal": "^2.4.1"
+  },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "eslint": "^9.18.0",
@@ -49,10 +58,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "dependencies": {
-    "@dfinity/agent": "^2.4.1",
-    "@dfinity/ic-management": "^6.2.0",
-    "@dfinity/principal": "^2.4.1"
   }
 }
