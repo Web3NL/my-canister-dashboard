@@ -16,7 +16,7 @@ WASM_CARGO_TOML="my-dashboard-wasm/src/my-dashboard-wasm/Cargo.toml"
 
 # Function to display usage
 usage() {
-    echo "Usage: $0 <patch|minor|major>"
+    echo "Usage: $0 <patch|minor|major> [--beta]"
     echo ""
     echo "This script will:"
     echo "  1. Update versions in all subprojects"
@@ -25,9 +25,10 @@ usage() {
     echo "  4. Create and push git tag"
     echo ""
     echo "Examples:"
-    echo "  $0 patch   # 0.1.0 -> 0.1.1"
-    echo "  $0 minor   # 0.1.0 -> 0.2.0"
-    echo "  $0 major   # 0.1.0 -> 1.0.0"
+    echo "  $0 patch        # 0.1.0 -> 0.1.1"
+    echo "  $0 minor        # 0.1.0 -> 0.2.0"
+    echo "  $0 major        # 0.1.0 -> 1.0.0"
+    echo "  $0 minor --beta # 0.1.0 -> 0.2.0-beta.1"
     exit 1
 }
 
@@ -41,8 +42,11 @@ parse_version() {
 increment_version() {
     local version=$1
     local bump_type=$2
+    local is_beta=$3
     
-    read -r major minor patch <<< $(parse_version $version)
+    # Remove any existing beta suffix for version parsing
+    local clean_version=$(echo $version | sed 's/-beta\.[0-9]*$//')
+    read -r major minor patch <<< $(parse_version $clean_version)
     
     case $bump_type in
         "patch")
@@ -63,7 +67,14 @@ increment_version() {
             ;;
     esac
     
-    echo "$major.$minor.$patch"
+    local new_version="$major.$minor.$patch"
+    
+    # Add beta suffix if requested
+    if [ "$is_beta" = true ]; then
+        new_version="$new_version-beta.1"
+    fi
+    
+    echo "$new_version"
 }
 
 # Function to get current version from package.json
@@ -109,11 +120,22 @@ update_cargo_toml_version() {
 }
 
 # Check arguments
-if [ $# -ne 1 ]; then
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
     usage
 fi
 
 BUMP_TYPE=$1
+IS_BETA=false
+
+# Check for beta flag
+if [ $# -eq 2 ]; then
+    if [ "$2" = "--beta" ]; then
+        IS_BETA=true
+    else
+        echo -e "${RED}Error: Invalid second argument '$2'. Only '--beta' is supported.${NC}"
+        usage
+    fi
+fi
 
 # Validate bump type
 case $BUMP_TYPE in
@@ -165,9 +187,13 @@ if [ "$FRONTEND_VERSION" != "$RUST_VERSION" ] || [ "$FRONTEND_VERSION" != "$WASM
 fi
 
 CURRENT_VERSION=$FRONTEND_VERSION
-NEW_VERSION=$(increment_version "$CURRENT_VERSION" "$BUMP_TYPE")
+NEW_VERSION=$(increment_version "$CURRENT_VERSION" "$BUMP_TYPE" "$IS_BETA")
 
-echo -e "${YELLOW}🔄 Bumping version: $CURRENT_VERSION -> $NEW_VERSION${NC}"
+if [ "$IS_BETA" = true ]; then
+    echo -e "${YELLOW}🔄 Bumping version (BETA): $CURRENT_VERSION -> $NEW_VERSION${NC}"
+else
+    echo -e "${YELLOW}🔄 Bumping version: $CURRENT_VERSION -> $NEW_VERSION${NC}"
+fi
 
 # Update all version files
 echo -e "${BLUE}📝 Updating version files...${NC}"

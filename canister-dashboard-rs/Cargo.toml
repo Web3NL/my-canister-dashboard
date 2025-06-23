@@ -2,7 +2,7 @@
 name = "my-canister-dashboard"
 version = "0.2.1"
 edition = "2024"
-description = "Self-contained dashboard assets for Internet Computer canisters"
+description = "Self-contained dashboard assets for Internet Computer canisters (BETA - not production ready)"
 license = "MIT"
 authors = ["Canister Dashboard Contributors"]
 repository = "https://github.com/Web3NL/my-canister-dashboard"

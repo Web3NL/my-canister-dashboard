@@ -3,6 +3,15 @@
 //! A self-contained dashboard for Internet Computer canisters that provides
 //! essential monitoring and management capabilities.
 //!
+//! ## ⚠️ Beta Warning
+//! 
+//! **This crate is in BETA and NOT PRODUCTION READY.**
+//! 
+//! - API may change without notice
+//! - Not recommended for production use
+//! - Use at your own risk
+//! - Feedback and contributions welcome
+//!
 //! ## Features
 //!
 //! - Canister status monitoring
