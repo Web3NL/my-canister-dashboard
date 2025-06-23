@@ -42,7 +42,7 @@ pub fn update_ii_principal(arg: UpdateIIPrincipal) -> UpdateIIPrincipalResult {
 
 thread_local! {
     /// Thread-local storage for Internet Identity principal
-    static II_PRINCIPAL: RefCell<Option<Principal>> = RefCell::new(None);
+    static II_PRINCIPAL: RefCell<Option<Principal>> = const { RefCell::new(None) };
 }
 
 /// Sets the Internet Identity principal in thread-local storage
