@@ -44,10 +44,31 @@ increment_version() {
     local bump_type=$2
     local is_beta=$3
     
-    # Remove any existing beta suffix for version parsing
-    local clean_version=$(echo $version | sed 's/-beta\.[0-9]*$//')
+    # Parse current version to detect if it's already a beta
+    local clean_version
+    local current_beta_num=""
+    local is_current_beta=false
+    
+    if [[ $version =~ ^(.+)-beta\.([0-9]+)$ ]]; then
+        clean_version="${BASH_REMATCH[1]}"
+        current_beta_num="${BASH_REMATCH[2]}"
+        is_current_beta=true
+    else
+        clean_version="$version"
+        is_current_beta=false
+    fi
+    
     read -r major minor patch <<< $(parse_version $clean_version)
     
+    # If --beta flag is set and current is beta and we're doing a patch bump,
+    # just increment the beta number without changing the base version
+    if [ "$is_beta" = true ] && [ "$is_current_beta" = true ] && [ "$bump_type" = "patch" ]; then
+        local new_beta_num=$((current_beta_num + 1))
+        echo "$clean_version-beta.$new_beta_num"
+        return
+    fi
+    
+    # Otherwise, bump the base version according to bump_type
     case $bump_type in
         "patch")
             patch=$((patch + 1))

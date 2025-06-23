@@ -1,5 +1,10 @@
 # Canister Dashboard
 
+[![Crates.io](https://img.shields.io/crates/v/my-canister-dashboard)](https://crates.io/crates/my-canister-dashboard)
+[![Documentation](https://docs.rs/my-canister-dashboard/badge.svg)](https://docs.rs/my-canister-dashboard)
+[![Build Status](https://github.com/Web3NL/my-canister-dashboard/workflows/CI/badge.svg)](https://github.com/Web3NL/my-canister-dashboard/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A self-contained dashboard for Internet Computer canisters that provides essential monitoring and management capabilities.
 
 ## ⚠️ Beta Warning
