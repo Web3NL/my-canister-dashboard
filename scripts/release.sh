@@ -261,6 +261,17 @@ git push origin "v$NEW_VERSION"
 
 echo -e "${GREEN}✅ Pushed to remote${NC}"
 
+# Publish Rust crate to crates.io
+echo -e "${BLUE}📦 Publishing Rust crate to crates.io...${NC}"
+(cd "$RUST_CARGO_TOML" && cd .. && cargo publish) || {
+    echo -e "${RED}❌ Failed to publish Rust crate to crates.io${NC}"
+    echo -e "${YELLOW}⚠️  Release completed but crate publication failed${NC}"
+    echo -e "${YELLOW}    You may need to publish manually with: cd canister-dashboard-rs && cargo publish${NC}"
+    exit 1
+}
+
+echo -e "${GREEN}✅ Rust crate published to crates.io${NC}"
+
 echo ""
 echo -e "${GREEN}🎉 Release $NEW_VERSION completed successfully!${NC}"
 echo ""
@@ -269,5 +280,7 @@ echo "  - Version bumped from $CURRENT_VERSION to $NEW_VERSION"
 echo "  - All prerelease checks passed"
 echo "  - Changes committed and tagged"
 echo "  - Pushed to remote repository"
+echo "  - Rust crate published to crates.io"
 echo ""
 echo "The CI workflow will now run for tag v$NEW_VERSION"
+echo "Crate documentation will be available at: https://docs.rs/my-canister-dashboard/$NEW_VERSION"
