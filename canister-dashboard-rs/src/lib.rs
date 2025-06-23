@@ -1,3 +1,28 @@
+//! # Canister Dashboard
+//!
+//! A self-contained dashboard for Internet Computer canisters that provides
+//! essential monitoring and management capabilities.
+//!
+//! ## Features
+//!
+//! - Canister status monitoring
+//! - Balance and cycles tracking
+//! - Controller management
+//! - Top-up functionality
+//! - Alternative origins configuration
+//!
+//! ## Usage
+//!
+//! Add the dashboard assets to your canister:
+//!
+//! ```rust
+//! use ic_asset_certification::AssetRouter;
+//! use my_canister_dashboard::setup_dashboard_assets;
+//!
+//! let mut router = AssetRouter::default();
+//! setup_dashboard_assets(&mut router).expect("Failed to setup dashboard");
+//! ```
+
 use ic_asset_certification::{Asset, AssetRouter};
 use ic_cdk::api::set_certified_data;
 use include_dir::{Dir, include_dir};
@@ -13,8 +38,29 @@ pub use alternative_origins::{
 static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 
 /// Sets up dashboard assets in the provided AssetRouter.
-/// Leaves any existing assets untouched and only adds the dashboard assets.
-/// Automatically updates the certified data with the new root hash.
+/// 
+/// This function adds the self-contained dashboard assets to your canister's asset router.
+/// It leaves any existing assets untouched and only adds the dashboard assets.
+/// The certified data is automatically updated with the new root hash.
+/// 
+/// # Arguments
+/// 
+/// * `router` - A mutable reference to the AssetRouter where dashboard assets will be added
+/// 
+/// # Returns
+/// 
+/// * `Ok(())` on success
+/// * `Err(String)` if asset certification fails
+/// 
+/// # Example
+/// 
+/// ```rust
+/// use ic_asset_certification::AssetRouter;
+/// use my_canister_dashboard::setup_dashboard_assets;
+/// 
+/// let mut router = AssetRouter::default();
+/// setup_dashboard_assets(&mut router)?;
+/// ```
 pub fn setup_dashboard_assets(router: &mut AssetRouter) -> Result<(), String> {
     let mut assets = Vec::new();
     let mut asset_configs = Vec::new();
