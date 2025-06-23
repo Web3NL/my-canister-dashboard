@@ -1,0 +1,51 @@
+{
+  "name": "my-canister-dashboard",
+  "version": "0.3.0-beta.2",
+  "description": "Utility functions for canisters using My Canister Dashboard",
+  "repository": "https://github.com/Web3NL/my-canister-dashboard/tree/main/my-canister-dashboard-js",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.{ts,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "internet-computer",
+    "canister",
+    "dfinity",
+    "ic",
+    "utilities"
+  ],
+  "author": "Web3NL",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.20.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
