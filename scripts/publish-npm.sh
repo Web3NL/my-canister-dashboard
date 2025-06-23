@@ -19,10 +19,6 @@ if ! npm whoami > /dev/null 2>&1; then
   exit 1
 fi
 
-# Ensure dependencies are installed
-echo "📦 Installing dependencies..."
-(cd my-canister-dashboard-js && npm install)
-
 # Get current version from package.json
 VERSION=$(node -p "require('./my-canister-dashboard-js/package.json').version")
 echo "📦 Current version: $VERSION"
