@@ -11,6 +11,7 @@ NC='\033[0m' # No Color
 
 # Version files
 FRONTEND_PACKAGE_JSON="canister-dashboard-frontend/package.json"
+JS_PACKAGE_JSON="my-canister-dashboard-js/package.json"
 RUST_CARGO_TOML="canister-dashboard-rs/Cargo.toml"
 WASM_CARGO_TOML="my-dashboard-wasm/src/my-dashboard-wasm/Cargo.toml"
 
@@ -174,6 +175,14 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     exit 1
 fi
 
+# Check if we're on the main branch
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$CURRENT_BRANCH" != "main" ]; then
+    echo -e "${RED}Error: Release script must be run from the main branch${NC}"
+    echo -e "${YELLOW}Current branch: $CURRENT_BRANCH${NC}"
+    exit 1
+fi
+
 # Check if working directory is clean
 if [ -n "$(git status --porcelain)" ]; then
     echo -e "${RED}Error: Working directory is not clean. Please commit or stash changes first.${NC}"
@@ -182,7 +191,7 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 # Check if all version files exist
-for file in "$FRONTEND_PACKAGE_JSON" "$RUST_CARGO_TOML" "$WASM_CARGO_TOML"; do
+for file in "$FRONTEND_PACKAGE_JSON" "$JS_PACKAGE_JSON" "$RUST_CARGO_TOML" "$WASM_CARGO_TOML"; do
     if [ ! -f "$file" ]; then
         echo -e "${RED}Error: Version file not found: $file${NC}"
         exit 1
@@ -194,15 +203,17 @@ echo -e "${BLUE}🚀 Starting release process...${NC}"
 # Get current versions
 echo -e "${YELLOW}📋 Current versions:${NC}"
 FRONTEND_VERSION=$(get_package_json_version "$FRONTEND_PACKAGE_JSON")
+JS_VERSION=$(get_package_json_version "$JS_PACKAGE_JSON")
 RUST_VERSION=$(get_cargo_toml_version "$RUST_CARGO_TOML")
 WASM_VERSION=$(get_cargo_toml_version "$WASM_CARGO_TOML")
 
 echo "  Frontend: $FRONTEND_VERSION"
+echo "  JS Package: $JS_VERSION"
 echo "  Rust Backend: $RUST_VERSION"
 echo "  WASM Module: $WASM_VERSION"
 
 # Check if all versions are the same
-if [ "$FRONTEND_VERSION" != "$RUST_VERSION" ] || [ "$FRONTEND_VERSION" != "$WASM_VERSION" ]; then
+if [ "$FRONTEND_VERSION" != "$JS_VERSION" ] || [ "$FRONTEND_VERSION" != "$RUST_VERSION" ] || [ "$FRONTEND_VERSION" != "$WASM_VERSION" ]; then
     echo -e "${RED}Error: Version mismatch detected. All subprojects should have the same version.${NC}"
     exit 1
 fi
@@ -219,6 +230,7 @@ fi
 # Update all version files
 echo -e "${BLUE}📝 Updating version files...${NC}"
 update_package_json_version "$FRONTEND_PACKAGE_JSON" "$NEW_VERSION"
+update_package_json_version "$JS_PACKAGE_JSON" "$NEW_VERSION"
 update_cargo_toml_version "$RUST_CARGO_TOML" "$NEW_VERSION"
 update_cargo_toml_version "$WASM_CARGO_TOML" "$NEW_VERSION"
 
@@ -232,7 +244,7 @@ echo -e "${GREEN}✅ Prerelease checks passed${NC}"
 
 # Commit changes
 echo -e "${BLUE}💾 Committing changes...${NC}"
-git add "$FRONTEND_PACKAGE_JSON" "$RUST_CARGO_TOML" "$WASM_CARGO_TOML"
+git add "$FRONTEND_PACKAGE_JSON" "$JS_PACKAGE_JSON" "$RUST_CARGO_TOML" "$WASM_CARGO_TOML"
 
 # Also commit any build artifacts that were updated by prerelease.sh
 if [ -n "$(git status --porcelain)" ]; then
@@ -261,16 +273,6 @@ git push origin "v$NEW_VERSION"
 
 echo -e "${GREEN}✅ Pushed to remote${NC}"
 
-# Publish Rust crate to crates.io
-echo -e "${BLUE}📦 Publishing Rust crate to crates.io...${NC}"
-(cd "$RUST_CARGO_TOML" && cd .. && cargo publish) || {
-    echo -e "${RED}❌ Failed to publish Rust crate to crates.io${NC}"
-    echo -e "${YELLOW}⚠️  Release completed but crate publication failed${NC}"
-    echo -e "${YELLOW}    You may need to publish manually with: cd canister-dashboard-rs && cargo publish${NC}"
-    exit 1
-}
-
-echo -e "${GREEN}✅ Rust crate published to crates.io${NC}"
 
 echo ""
 echo -e "${GREEN}🎉 Release $NEW_VERSION completed successfully!${NC}"
@@ -280,7 +282,5 @@ echo "  - Version bumped from $CURRENT_VERSION to $NEW_VERSION"
 echo "  - All prerelease checks passed"
 echo "  - Changes committed and tagged"
 echo "  - Pushed to remote repository"
-echo "  - Rust crate published to crates.io"
 echo ""
 echo "The CI workflow will now run for tag v$NEW_VERSION"
-echo "Crate documentation will be available at: https://docs.rs/my-canister-dashboard/$NEW_VERSION"
