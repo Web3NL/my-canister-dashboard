@@ -4,9 +4,9 @@
 //! essential monitoring and management capabilities.
 //!
 //! ## ⚠️ Beta Warning
-//! 
+//!
 //! **This crate is in BETA and NOT PRODUCTION READY.**
-//! 
+//!
 //! - API may change without notice
 //! - Not recommended for production use
 //! - Use at your own risk
@@ -47,26 +47,26 @@ pub use alternative_origins::{
 static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 
 /// Sets up dashboard assets in the provided AssetRouter.
-/// 
+///
 /// This function adds the self-contained dashboard assets to your canister's asset router.
 /// It leaves any existing assets untouched and only adds the dashboard assets.
 /// The certified data is automatically updated with the new root hash.
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `router` - A mutable reference to the AssetRouter where dashboard assets will be added
-/// 
+///
 /// # Returns
-/// 
+///
 /// * `Ok(())` on success
 /// * `Err(String)` if asset certification fails
-/// 
+///
 /// # Example
-/// 
+///
 /// ```rust,no_run
 /// use ic_asset_certification::AssetRouter;
 /// use my_canister_dashboard::setup_dashboard_assets;
-/// 
+///
 /// # fn main() -> Result<(), String> {
 /// let mut router = AssetRouter::default();
 /// setup_dashboard_assets(&mut router)?;

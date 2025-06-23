@@ -1,6 +1,6 @@
 {
   "name": "my-canister-dashboard",
-  "version": "0.2.1",
+  "version": "0.3.0-beta.1",
   "description": "Self-contained dashboard for Internet Computer canisters (BETA - not production ready)",
   "type": "module",
   "scripts": {
