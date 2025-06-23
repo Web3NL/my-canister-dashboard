@@ -15,7 +15,7 @@
 //!
 //! Add the dashboard assets to your canister:
 //!
-//! ```rust
+//! ```rust,no_run
 //! use ic_asset_certification::AssetRouter;
 //! use my_canister_dashboard::setup_dashboard_assets;
 //!
@@ -54,12 +54,15 @@ static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 /// 
 /// # Example
 /// 
-/// ```rust
+/// ```rust,no_run
 /// use ic_asset_certification::AssetRouter;
 /// use my_canister_dashboard::setup_dashboard_assets;
 /// 
+/// # fn main() -> Result<(), String> {
 /// let mut router = AssetRouter::default();
 /// setup_dashboard_assets(&mut router)?;
+/// # Ok(())
+/// # }
 /// ```
 pub fn setup_dashboard_assets(router: &mut AssetRouter) -> Result<(), String> {
     let mut assets = Vec::new();
