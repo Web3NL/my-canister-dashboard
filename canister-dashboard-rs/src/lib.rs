@@ -44,9 +44,7 @@ mod ii_principal;
 pub use alternative_origins::{
     UpdateAlternativeOriginsArg, UpdateAlternativeOriginsResult, update_alternative_origins,
 };
-pub use ii_principal::{
-    UpdateIIPrincipal, UpdateIIPrincipalResult, update_ii_principal,
-};
+pub use ii_principal::{UpdateIIPrincipal, UpdateIIPrincipalResult, update_ii_principal};
 
 static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 
