@@ -5,13 +5,13 @@ use ic_asset_certification::{Asset, AssetRouter};
 use ic_cdk::api::set_certified_data;
 use serde::{Deserialize, Serialize};
 
-#[derive(CandidType, Serialize, Deserialize)]
+#[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
 pub enum UpdateAlternativeOriginsArg {
     AddAlternativeOrigin(String),
     RemoveAlternativeOrigin(String),
 }
 
-#[derive(CandidType, Serialize, Deserialize)]
+#[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
 pub enum UpdateAlternativeOriginsResult {
     Ok,
     Err(String),
