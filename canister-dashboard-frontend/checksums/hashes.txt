@@ -2,6 +2,6 @@
 
 ## SHA256 checksums:
 1a22cbd5a8212527b1f827c3992dd3abd8046e7bcb29206926fb721385ad7919  ./canister-dashboard-BMIkId--.js
-5313cb911760689002c78013f98500e5652d41ea2cbf8946e5493e3edba98eb8  ./ii-alternative-origins
 67e0802b933928f36a126ccd2cf675b1499b568624fa5e63c5fef1ed98b97612  ./canister-dashboard.html
 c8c69bdc4e2b286fbd5837cc8281089398153ea718574a97c1495acd125ef789  ./style-CQdQslat.css
+fdf2a6c555609a7aae6bc6ca16580b764f307bf1d0bc76deb2c3f5af4c4d0ea3  ./ii-alternative-origins
