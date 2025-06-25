@@ -19,11 +19,25 @@ export type UpdateAlternativeOriginsArg = {
   { 'AddAlternativeOrigin' : string };
 export type UpdateAlternativeOriginsResult = { 'Ok' : null } |
   { 'Err' : string };
+export type UpdateIIPrincipal = { 'Get' : null } |
+  { 'Set' : Principal };
+export type UpdateIIPrincipalResult = { 'Ok' : [] | [Principal] } |
+  { 'Err' : string };
+export interface WasmStatus {
+  'memo' : [] | [string],
+  'name' : string,
+  'version' : number,
+}
 export interface _SERVICE {
+  'get_wasm_status' : ActorMethod<[], WasmStatus>,
   'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
   'update_alternative_origins' : ActorMethod<
     [UpdateAlternativeOriginsArg],
     UpdateAlternativeOriginsResult
+  >,
+  'update_ii_principal' : ActorMethod<
+    [UpdateIIPrincipal],
+    UpdateIIPrincipalResult
   >,
 }
 export declare const idlFactory: IDL.InterfaceFactory;

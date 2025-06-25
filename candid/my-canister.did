@@ -11,6 +11,22 @@ type HttpResponse = record {
     body : vec nat8
 };
 
+type WasmStatus = record {
+    name : text;
+    version : nat16;
+    memo : opt text;
+};
+
+type UpdateIIPrincipal = variant {
+    Set : principal;
+    Get;
+};
+
+type UpdateIIPrincipalResult = variant {
+    Ok : opt principal;
+    Err : text;
+};
+
 type UpdateAlternativeOriginsArg = variant {
     AddAlternativeOrigin : text;
     RemoveAlternativeOrigin : text;
@@ -22,5 +38,7 @@ type UpdateAlternativeOriginsResult = variant {
 
 service : {
     "http_request" : (HttpRequest) -> (HttpResponse) query;
-    "update_alternative_origins" : (UpdateAlternativeOriginsArg) -> (UpdateAlternativeOriginsResult)
+    "get_wasm_status" : () -> (WasmStatus) query;
+    "update_ii_principal" : (UpdateIIPrincipal) -> (UpdateIIPrincipalResult);
+    "update_alternative_origins" : (UpdateAlternativeOriginsArg) -> (UpdateAlternativeOriginsResult);
 }

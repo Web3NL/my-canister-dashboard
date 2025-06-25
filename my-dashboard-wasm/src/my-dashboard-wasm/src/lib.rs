@@ -2,7 +2,7 @@ use ic_asset_certification::AssetRouter;
 use ic_cdk::api::data_certificate;
 use ic_cdk::{init, post_upgrade, query, update};
 use ic_http_certification::{HttpRequest, HttpResponse, StatusCode};
-use my_canister_dashboard::{only_canister_controllers_guard, WasmStatus};
+use my_canister_dashboard::{only_canister_controllers_guard, WasmStatus, UpdateIIPrincipal, UpdateIIPrincipalResult};
 use std::borrow::Cow;
 use std::cell::RefCell;
 
@@ -46,6 +46,20 @@ fn http_request(request: HttpRequest) -> HttpResponse {
     })
 }
 
+#[query(guard = "only_canister_controllers_guard")]
+fn get_wasm_status() -> WasmStatus {
+    WasmStatus {
+        name: "my-dashboard-wasm".to_string(),
+        version: 1,
+        memo: Some("Self-contained canister dashboard. github.com/Web3NL/my-canister-dashboard".to_string()),
+    }
+}
+
+#[update(guard = "only_canister_controllers_guard")]
+fn update_ii_principal(arg: UpdateIIPrincipal) -> UpdateIIPrincipalResult {
+    my_canister_dashboard::update_ii_principal(arg)
+}
+
 #[update(guard = "only_canister_controllers_guard")]
 fn update_alternative_origins(
     arg: my_canister_dashboard::UpdateAlternativeOriginsArg,
@@ -54,13 +68,4 @@ fn update_alternative_origins(
         let mut router = router.borrow_mut();
         my_canister_dashboard::update_alternative_origins(&mut router, arg)
     })
-}
-
-#[query(guard = "only_canister_controllers_guard")]
-fn get_wasm_status() -> WasmStatus {
-    WasmStatus {
-        name: "My Dashboard WASM".to_string(),
-        version: 1,
-        memo: Some("Self-contained canister dashboard".to_string()),
-    }
 }
