@@ -33,20 +33,52 @@
 //! ```
 
 use ic_asset_certification::{Asset, AssetRouter};
-use ic_cdk::api::set_certified_data;
+use ic_cdk::api::{set_certified_data, is_controller};
 use include_dir::{Dir, include_dir};
 
 mod alternative_origins;
 mod asset_configs;
 mod ii_principal;
+mod wasm_status;
 
 // Re-export only the essential types and main function
 pub use alternative_origins::{
     UpdateAlternativeOriginsArg, UpdateAlternativeOriginsResult, update_alternative_origins,
 };
 pub use ii_principal::{UpdateIIPrincipal, UpdateIIPrincipalResult, update_ii_principal};
+pub use wasm_status::WasmStatus;
 
 static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
+
+/// Checks if the caller is a controller of the canister.
+///
+/// # Returns
+///
+/// * `Ok(())` if the caller is a controller
+/// * `Err(String)` if the caller is not a controller
+///
+/// # Example
+///
+/// ```rust,no_run
+/// use my_canister_dashboard::only_canister_controllers_guard;
+///
+/// #[query(guard = "only_canister_controllers_guard")]
+/// fn query() {
+///     // Only controllers can call this function
+/// }
+/// 
+/// #[update(guard = "only_canister_controllers_guard")]
+/// fn update() {
+///     // Only controllers can call this function
+/// }
+/// ```
+pub fn only_canister_controllers_guard() -> Result<(), String> {
+    if is_controller() {
+        Ok(())
+    } else {
+        Err("Caller is not a controller".to_string())
+    }
+}
 
 /// Sets up dashboard assets in the provided AssetRouter.
 ///
