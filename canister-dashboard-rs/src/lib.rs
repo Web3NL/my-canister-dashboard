@@ -33,7 +33,7 @@
 //! ```
 
 use ic_asset_certification::{Asset, AssetRouter};
-use ic_cdk::api::{set_certified_data, is_controller};
+use ic_cdk::api::{caller, is_controller, set_certified_data};
 use include_dir::{Dir, include_dir};
 
 mod alternative_origins;
@@ -61,19 +61,20 @@ static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 ///
 /// ```rust,no_run
 /// use my_canister_dashboard::only_canister_controllers_guard;
+/// use ic_cdk::{query, update};
 ///
 /// #[query(guard = "only_canister_controllers_guard")]
 /// fn query() {
 ///     // Only controllers can call this function
 /// }
-/// 
+///
 /// #[update(guard = "only_canister_controllers_guard")]
 /// fn update() {
 ///     // Only controllers can call this function
 /// }
 /// ```
 pub fn only_canister_controllers_guard() -> Result<(), String> {
-    if is_controller() {
+    if is_controller(&caller()) {
         Ok(())
     } else {
         Err("Caller is not a controller".to_string())
