@@ -4,7 +4,7 @@ import {
   idlFactory,
   UpdateAlternativeOriginsArg,
   UpdateAlternativeOriginsResult,
-} from '../../../candid/my-canister.did.d';
+} from '../../../my-dashboard-wasm/candid/my-canister.did.d';
 import { createHttpAgent } from '../utils';
 import { inferCanisterIdFromLocation } from '../utils';
 

@@ -1,7 +1,7 @@
 {
     "canisters": {
         "my-dashboard-wasm": {
-            "candid": "../candid/my-canister.did",
+            "candid": "candid/my-canister.did",
             "package": "my-dashboard-wasm",
             "type": "rust"
         }
