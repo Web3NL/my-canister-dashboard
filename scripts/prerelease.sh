@@ -7,6 +7,9 @@ echo "🚀 Running prerelease build..."
 echo "🔍 Frontend lint..."
 ./scripts/frontend-lint-format.sh
 
+echo "📦 JS Package lint..."
+./scripts/js-lint-format.sh
+
 echo "📦 Frontend deterministic build..."
 (cd canister-dashboard-frontend && npm run build:deterministic)
 
