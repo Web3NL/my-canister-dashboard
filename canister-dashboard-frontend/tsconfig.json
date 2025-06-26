@@ -22,7 +22,10 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "$candid/*": ["./../my-canister-dashboard-rs/candid/*"]
+    }
   },
   "include": [
     "src",

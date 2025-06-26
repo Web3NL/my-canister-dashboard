@@ -1,10 +1,12 @@
 import { ActorSubclass, Actor } from '@dfinity/agent';
 import {
-  _SERVICE as CanisterApiService,
+  _SERVICE,
   idlFactory,
   UpdateAlternativeOriginsArg,
   UpdateAlternativeOriginsResult,
-} from '../../../my-canister-dashboard-rs/candid/my-canister.did.d';
+} from '$candid/my-canister.did';
+
+type CanisterApiService = _SERVICE;
 import { createHttpAgent } from '../utils';
 import { inferCanisterIdFromLocation } from '../utils';
 

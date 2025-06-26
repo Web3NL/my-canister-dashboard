@@ -21,4 +21,9 @@ export default defineConfig({
             },
         },
     },
+    resolve: {
+        alias: {
+            "$candid": path.resolve(__dirname, "../my-canister-dashboard-rs/candid"),
+        },
+    },
 });
