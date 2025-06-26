@@ -24,7 +24,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "$candid/*": ["./../my-canister-dashboard-rs/candid/*"]
+      "$candid/*": ["./../candid/*"]
     }
   },
   "include": [
