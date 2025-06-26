@@ -2,6 +2,9 @@
  * My Canister Dashboard utilities for Internet Computer canisters
  */
 
+// Export constants
+export { LOW_CYCLES_THRESHOLD } from './constants';
+
 // Export the main class
 export { MyCanisterDashboard } from './dashboard';
 
@@ -11,5 +14,5 @@ export type {
   CheckCyclesBalanceResult,
 } from './dashboard';
 
-// Export constants
-export { LOW_CYCLES_THRESHOLD } from './constants';
+// Export candid definitions
+export * from '$candid/my-canister.did.d';

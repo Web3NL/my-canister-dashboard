@@ -15,9 +15,9 @@ export default defineConfig({
         rollupOptions: {
             input: path.resolve(__dirname, 'src/canister-dashboard.html'),
             output: {
-                entryFileNames: '[name]-[hash].js',
-                chunkFileNames: '[name]-[hash].js',
-                assetFileNames: '[name]-[hash].[ext]',
+                entryFileNames: '[name].js',
+                chunkFileNames: '[name].js',
+                assetFileNames: '[name].[ext]',
             },
         },
     },
