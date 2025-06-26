@@ -14,7 +14,7 @@ echo "🦀 Rust lint..."
 ./scripts/rust-lint-format.sh
 
 echo "⚙️  WASM deterministic build..."
-(cd my-dashboard-wasm && ./build-deterministic.sh)
+(cd my-canister-dashboard-rs && ./build-deterministic.sh)
 
 echo "🔐 Validating deterministic builds..."
 echo "Checking that builds produce consistent results..."
@@ -24,7 +24,7 @@ FRONTEND_ORIGINAL_HASHES="/tmp/original-frontend-hashes.txt"
 WASM_ORIGINAL_HASHES="/tmp/original-wasm-hashes.txt"
 
 cp canister-dashboard-frontend/checksums/hashes.txt "$FRONTEND_ORIGINAL_HASHES" 2>/dev/null || echo "No existing frontend hashes found"
-cp my-dashboard-wasm/checksums/hashes.txt "$WASM_ORIGINAL_HASHES" 2>/dev/null || echo "No existing WASM hashes found"
+cp my-canister-dashboard-rs/checksums/hashes.txt "$WASM_ORIGINAL_HASHES" 2>/dev/null || echo "No existing WASM hashes found"
 
 # Rebuild to test deterministic nature
 echo "🔄 Running second build to verify determinism..."
@@ -32,12 +32,12 @@ echo "Frontend rebuild..."
 (cd canister-dashboard-frontend && npm run build:deterministic)
 
 echo "WASM rebuild..."
-(cd my-dashboard-wasm && ./build-deterministic.sh)
+(cd my-canister-dashboard-rs && ./build-deterministic.sh)
 
 # Compare checksums from first and second build
 echo "📋 Comparing checksums..."
 FRONTEND_REBUILD_HASHES="canister-dashboard-frontend/checksums/hashes.txt"
-WASM_REBUILD_HASHES="my-dashboard-wasm/checksums/hashes.txt"
+WASM_REBUILD_HASHES="my-canister-dashboard-rs/checksums/hashes.txt"
 
 if [ -f "$FRONTEND_ORIGINAL_HASHES" ]; then
     if ! diff -q "$FRONTEND_ORIGINAL_HASHES" "$FRONTEND_REBUILD_HASHES" > /dev/null 2>&1; then

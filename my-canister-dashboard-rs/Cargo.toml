@@ -1,7 +1,8 @@
 [workspace]
 members = [
-    "src/my-dashboard-wasm",
-    "src/my-canister-dashboard"
+    "src/my-canister-dashboard",
+    "src/my-canister-dashboard",
+    "src/my-dashboard-wasm"
 ]
 resolver = "2"
 

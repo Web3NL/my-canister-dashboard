@@ -10,7 +10,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Crate directory
-RUST_CRATE_DIR="my-dashboard-wasm/src/my-canister-dashboard"
+RUST_CRATE_DIR="my-canister-dashboard-rs/src/my-canister-dashboard"
 
 # Function to display usage
 usage() {

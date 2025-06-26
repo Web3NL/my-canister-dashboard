@@ -30,13 +30,11 @@ ENV DFX_WARNING=-mainnet_plaintext_identity
 
 # Copy project files (build context is now parent directory)
 
-COPY my-dashboard-wasm /app/my-dashboard-wasm
-WORKDIR /app/my-dashboard-wasm
+COPY my-canister-dashboard-rs /app/my-canister-dashboard-rs
+WORKDIR /app/my-canister-dashboard-rs
 
 # Build the canister using cargo (more deterministic than dfx)
-RUN cargo build --target wasm32-unknown-unknown --release --package my-dashboard-wasm && \
-    mkdir -p /app/.dfx/local/canisters/my-dashboard-wasm && \
-    cp target/wasm32-unknown-unknown/release/my_dashboard_wasm.wasm /app/.dfx/local/canisters/my-dashboard-wasm/my-dashboard-wasm.wasm
+RUN cargo build --target wasm32-unknown-unknown --release --package my-dashboard-wasm &&     mkdir -p /app/.dfx/local/canisters/my-canister-dashboard-rs &&     cp target/wasm32-unknown-unknown/release/my_dashboard_wasm.wasm /app/.dfx/local/canisters/my-canister-dashboard-rs/my-dashboard-wasm.wasm
 
 # Use SHA256-pinned Alpine image for deterministic final stage
 # To update: docker pull alpine:3.19 && docker inspect alpine:3.19 | grep -A1 RepoDigests
@@ -49,7 +47,7 @@ RUN addgroup -g 1001 -S appuser && adduser -S appuser -u 1001
 RUN mkdir -p /wasm && chown -R appuser:appuser /wasm
 
 # Copy built WASM files from builder stage  
-COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-dashboard-wasm/my-dashboard-wasm.wasm /wasm/
+COPY --from=builder --chown=appuser:appuser /app/.dfx/local/canisters/my-canister-dashboard-rs/my-dashboard-wasm.wasm /wasm/
 
 USER appuser
 

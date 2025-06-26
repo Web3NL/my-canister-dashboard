@@ -12,8 +12,8 @@ NC='\033[0m' # No Color
 # Version files
 FRONTEND_PACKAGE_JSON="canister-dashboard-frontend/package.json"
 JS_PACKAGE_JSON="my-canister-dashboard-js/package.json"
-RUST_CARGO_TOML="my-dashboard-wasm/src/my-canister-dashboard/Cargo.toml"
-WASM_CARGO_TOML="my-dashboard-wasm/src/my-dashboard-wasm/Cargo.toml"
+RUST_CARGO_TOML="my-canister-dashboard-rs/src/my-canister-dashboard/Cargo.toml"
+WASM_CARGO_TOML="my-canister-dashboard-rs/src/my-dashboard-wasm/Cargo.toml"
 
 # Function to display usage
 usage() {

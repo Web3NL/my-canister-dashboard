@@ -32,7 +32,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            my-dashboard-wasm/target
+            my-canister-dashboard-rs/target
             my-empty-wasm/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
@@ -74,7 +74,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            my-dashboard-wasm/target
+            my-canister-dashboard-rs/target
             my-empty-wasm/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |

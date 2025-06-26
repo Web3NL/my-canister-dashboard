@@ -1,0 +1,4 @@
+# SHA256 checksums for deterministic build verification
+
+## SHA256 checksums:
+d3c36e37bf37f4f8792b5c49b5998bd2be23f2766bcdb831f3601a44c76c6168  ./my-dashboard-wasm.wasm

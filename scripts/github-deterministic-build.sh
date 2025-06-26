@@ -64,7 +64,7 @@ echo "================================="
 # Build WASM Docker image
 cd ..
 WASM_CONTAINER_NAME="github-wasm-builder"
-docker build --platform linux/amd64 -f my-dashboard-wasm/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
+docker build --platform linux/amd64 -f my-canister-dashboard-rs/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
 
 # Extract WASM build artifacts
 echo "📋 Extracting WASM build files..."
@@ -119,7 +119,7 @@ fi
 
 # Compare WASM hashes
 echo "Verifying WASM hashes..."
-WASM_COMMITTED_HASHES="my-dashboard-wasm/checksums/hashes.txt"
+WASM_COMMITTED_HASHES="my-canister-dashboard-rs/checksums/hashes.txt"
 if [ ! -f "$WASM_COMMITTED_HASHES" ]; then
     echo "❌ ERROR: WASM committed hashes file not found: $WASM_COMMITTED_HASHES"
     exit 1
