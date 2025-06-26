@@ -29,7 +29,7 @@ ENV DFX_TELEMETRY_DISABLED=1
 ENV DFX_WARNING=-mainnet_plaintext_identity
 
 # Copy project files (build context is now parent directory)
-COPY canister-dashboard-rs /app/canister-dashboard-rs
+
 COPY my-dashboard-wasm /app/my-dashboard-wasm
 WORKDIR /app/my-dashboard-wasm
 

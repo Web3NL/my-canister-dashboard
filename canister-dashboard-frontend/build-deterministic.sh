@@ -3,7 +3,7 @@
 set -e
 
 DIST_DIR="./dist"
-RS_ASSETS_DIR="../canister-dashboard-rs/assets"
+RS_ASSETS_DIR="../my-dashboard-wasm/src/canister-dashboard-rs/assets"
 CHECKSUMS_DIR="./checksums"
 CONTAINER_NAME="my-canister-dashboard-builder"
 

@@ -61,7 +61,7 @@ echo ""
 echo "🦀 Building WASM Docker Image..."
 echo "================================="
 
-# Build WASM Docker image (from parent directory to include canister-dashboard-rs dependency)
+# Build WASM Docker image
 cd ..
 WASM_CONTAINER_NAME="github-wasm-builder"
 docker build --platform linux/amd64 -f my-dashboard-wasm/Dockerfile.build -t "$WASM_CONTAINER_NAME" .
