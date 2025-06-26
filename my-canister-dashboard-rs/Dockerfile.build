@@ -15,8 +15,12 @@ RUN apt-get update && apt-get install -y \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 
-# Set default toolchain and add WASM target
-RUN rustup default stable
+# Copy rust-toolchain.toml to use as source of truth for Rust version
+COPY rust-toolchain.toml /app/rust-toolchain.toml
+
+# Set toolchain from rust-toolchain.toml and add WASM target
+WORKDIR /app
+RUN rustup show
 RUN rustup target add wasm32-unknown-unknown
 
 # Install dfx 0.27.0 using specific version
