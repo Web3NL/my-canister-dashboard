@@ -14,7 +14,7 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Web3NL/my-canister-dashboard.git",
+    "url": "git+https://github.com/Web3NL/my-canister-dashboard.git",
     "directory": "my-canister-dashboard-js"
   },
   "type": "module",
