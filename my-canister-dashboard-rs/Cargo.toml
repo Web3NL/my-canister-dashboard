@@ -2,7 +2,7 @@
 members = [
     "src/my-canister-dashboard",
     "src/my-canister-dashboard",
-    "src/my-dashboard-wasm"
+    "src/my-canister-installer"
 ]
 resolver = "2"
 

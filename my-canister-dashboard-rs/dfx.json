@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "my-dashboard-wasm": {
+        "my-canister-installer": {
             "candid": "../candid/my-canister.did",
             "package": "my-canister-dashboard-rs",
             "type": "rust"
