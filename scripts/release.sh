@@ -175,13 +175,7 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     exit 1
 fi
 
-# Check if we're on the main branch
-CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "main" ]; then
-    echo -e "${RED}Error: Release script must be run from the main branch${NC}"
-    echo -e "${YELLOW}Current branch: $CURRENT_BRANCH${NC}"
-    exit 1
-fi
+
 
 # Check if working directory is clean
 if [ -n "$(git status --porcelain)" ]; then
