@@ -25,8 +25,6 @@ docker build --platform linux/amd64 -f Dockerfile.build -t "$CONTAINER_NAME" .
 echo "📋 Extracting build files..."
 TEMP_CONTAINER=$(docker create "$CONTAINER_NAME")
 docker cp "$TEMP_CONTAINER:/dist/." "$DIST_DIR/"
-# Also copy to Rust assets directory
-cp -r "$DIST_DIR/"* "$RS_ASSETS_DIR/"
 docker rm "$TEMP_CONTAINER"
 
 # Remove non-hashed duplicates (keep only hashed versions for JS/CSS)
@@ -34,7 +32,7 @@ echo "🧹 Cleaning duplicate files..."
 cd "$DIST_DIR"
 rm -f main.js style.css
 
-# Calculate hashes
+# Calculate hashes BEFORE copying to Rust assets
 echo "🔍 Calculating file hashes..."
 
 # Generate hash manifest (using absolute path)
@@ -47,6 +45,10 @@ echo "🔍 Calculating file hashes..."
     
     
 } > "../$CHECKSUMS_DIR/hashes.txt"
+
+# Copy cleaned files to Rust assets directory (after hash calculation)
+echo "📋 Copying assets to Rust directory..."
+cp -r ./* "../$RS_ASSETS_DIR/"
 
 # Go back to original directory
 cd ..
