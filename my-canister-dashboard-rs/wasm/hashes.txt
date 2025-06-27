@@ -1,1 +1,1 @@
-f93652cfca3dbcc549894c5d4d275de2b38f123dbcf850a5a7545f2ec27cfeef  my-canister-installer.wasm
+577264d3bd855743d331667d5c97293d46a004a1f6506789392411c6409229d6  my-canister-installer.wasm
