@@ -1,4 +1,0 @@
-# SHA256 checksums for deterministic build verification
-
-## SHA256 checksums:
-518202c670570f7980c782d26ad88a6b524e2c0c3210ab2242d19ef91f1ccac6  ./my-canister-installer.wasm
