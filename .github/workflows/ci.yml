@@ -18,25 +18,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: 'canister-dashboard-frontend/package-lock.json'
           
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-          
-      - name: Cache Rust dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            my-canister-dashboard-rs/target
-            my-empty-wasm/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
             
       - name: Install frontend dependencies
         run: cd canister-dashboard-frontend && npm ci
@@ -56,38 +42,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: 'canister-dashboard-frontend/package-lock.json'
-          
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt, clippy
-          
-      - name: Cache Rust dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            my-canister-dashboard-rs/target
-            my-empty-wasm/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-        
-      - name: Install DFX
-        uses: dfinity/setup-dfx@main
-        
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
-      - name: Install frontend dependencies
-        run: cd canister-dashboard-frontend && npm ci
         
       - name: Run deterministic build and hash verification
         run: ./scripts/github-deterministic-build.sh

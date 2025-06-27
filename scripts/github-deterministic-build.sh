@@ -5,12 +5,7 @@ set -e
 echo "🏗️  GitHub Deterministic Build and Hash Verification"
 echo "=================================================="
 
-# Run linting and formatting first
-echo "🔍 Running frontend lint and format..."
-./scripts/frontend-lint-format.sh
-
-echo "🦀 Running rust lint and format..."
-./scripts/rust-lint-format.sh
+# Linting and formatting already done in CI lint-and-format job
 
 # Temporary directories for GitHub build artifacts
 TEMP_FRONTEND_DIR="/tmp/github-frontend-build"
@@ -69,7 +64,7 @@ docker build --platform linux/amd64 -f my-canister-dashboard-rs/Dockerfile.build
 # Extract WASM build artifacts
 echo "📋 Extracting WASM build files..."
 TEMP_CONTAINER=$(docker create "$WASM_CONTAINER_NAME")
-docker cp "$TEMP_CONTAINER:/wasm/." "$TEMP_WASM_DIR/"
+docker cp "$TEMP_CONTAINER:/app/my-canister-dashboard-rs/wasm/." "$TEMP_WASM_DIR/"
 docker rm "$TEMP_CONTAINER"
 
 # Calculate WASM hashes
