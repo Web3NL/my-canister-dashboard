@@ -15,4 +15,14 @@ export type {
 } from './dashboard';
 
 // Export candid definitions
-export * from '$declarations/my-canister.did.d';
+export type { _SERVICE } from '$declarations/my-canister.did.d';
+export type {
+  HttpRequest,
+  HttpResponse,
+  UpdateAlternativeOriginsArg,
+  UpdateAlternativeOriginsResult,
+  UpdateIIPrincipalArg,
+  UpdateIIPrincipalResult,
+  WasmStatus,
+} from '../../declarations/my-canister.did.d';
+export { idlFactory } from '../../declarations/my-canister.did.d';

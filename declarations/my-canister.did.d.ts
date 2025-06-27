@@ -19,7 +19,7 @@ export type UpdateAlternativeOriginsArg = {
   { 'AddAlternativeOrigin' : string };
 export type UpdateAlternativeOriginsResult = { 'Ok' : null } |
   { 'Err' : string };
-export type UpdateIIPrincipal = { 'Get' : null } |
+export type UpdateIIPrincipalArg = { 'Get' : null } |
   { 'Set' : Principal };
 export type UpdateIIPrincipalResult = { 'Ok' : Principal } |
   { 'Err' : string };
@@ -35,7 +35,7 @@ export interface _SERVICE {
     UpdateAlternativeOriginsResult
   >,
   'update_ii_principal' : ActorMethod<
-    [UpdateIIPrincipal],
+    [UpdateIIPrincipalArg],
     UpdateIIPrincipalResult
   >,
   'wasm_status' : ActorMethod<[], WasmStatus>,

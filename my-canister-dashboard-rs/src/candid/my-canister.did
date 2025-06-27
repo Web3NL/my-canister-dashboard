@@ -17,7 +17,7 @@ type WasmStatus = record {
     memo : opt text
 };
 
-type UpdateIIPrincipal = variant {
+type UpdateIIPrincipalArg = variant {
     Set : principal;
     Get
 };
@@ -31,6 +31,7 @@ type UpdateAlternativeOriginsArg = variant {
     AddAlternativeOrigin : text;
     RemoveAlternativeOrigin : text
 };
+
 type UpdateAlternativeOriginsResult = variant {
     Ok;
     Err : text
@@ -39,6 +40,6 @@ type UpdateAlternativeOriginsResult = variant {
 service : {
     "http_request" : (HttpRequest) -> (HttpResponse) query;
     "wasm_status" : () -> (WasmStatus) query;
-    "update_ii_principal" : (UpdateIIPrincipal) -> (UpdateIIPrincipalResult);
+    "update_ii_principal" : (UpdateIIPrincipalArg) -> (UpdateIIPrincipalResult);
     "update_alternative_origins" : (UpdateAlternativeOriginsArg) -> (UpdateAlternativeOriginsResult)
 }
