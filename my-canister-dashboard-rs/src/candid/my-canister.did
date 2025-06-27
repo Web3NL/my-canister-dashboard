@@ -23,7 +23,7 @@ type UpdateIIPrincipalArg = variant {
 };
 
 type UpdateIIPrincipalResult = variant {
-    Ok : principal;
+    Ok : opt principal;
     Err : text
 };
 

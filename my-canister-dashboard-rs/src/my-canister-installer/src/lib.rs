@@ -3,7 +3,7 @@ use ic_cdk::api::data_certificate;
 use ic_cdk::{init, post_upgrade, query, update};
 use ic_http_certification::{HttpRequest, HttpResponse, StatusCode};
 use my_canister_dashboard::{
-    UpdateIIPrincipal, UpdateIIPrincipalResult, WasmStatus, only_canister_controllers_guard,
+    UpdateIIPrincipalArg, UpdateIIPrincipalResult, WasmStatus, only_canister_controllers_guard,
 };
 use std::borrow::Cow;
 use std::cell::RefCell;
@@ -61,7 +61,7 @@ fn get_wasm_status() -> WasmStatus {
 }
 
 #[update(guard = "only_canister_controllers_guard")]
-fn update_ii_principal(arg: UpdateIIPrincipal) -> UpdateIIPrincipalResult {
+fn update_ii_principal(arg: UpdateIIPrincipalArg) -> UpdateIIPrincipalResult {
     my_canister_dashboard::update_ii_principal(arg)
 }
 

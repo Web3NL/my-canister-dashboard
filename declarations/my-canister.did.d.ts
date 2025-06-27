@@ -21,7 +21,7 @@ export type UpdateAlternativeOriginsResult = { 'Ok' : null } |
   { 'Err' : string };
 export type UpdateIIPrincipalArg = { 'Get' : null } |
   { 'Set' : Principal };
-export type UpdateIIPrincipalResult = { 'Ok' : Principal } |
+export type UpdateIIPrincipalResult = { 'Ok' : [] | [Principal] } |
   { 'Err' : string };
 export interface WasmStatus {
   'memo' : [] | [string],

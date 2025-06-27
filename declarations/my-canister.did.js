@@ -23,7 +23,7 @@ export const idlFactory = ({ IDL }) => {
     'Set' : IDL.Principal,
   });
   const UpdateIIPrincipalResult = IDL.Variant({
-    'Ok' : IDL.Principal,
+    'Ok' : IDL.Opt(IDL.Principal),
     'Err' : IDL.Text,
   });
   const WasmStatus = IDL.Record({

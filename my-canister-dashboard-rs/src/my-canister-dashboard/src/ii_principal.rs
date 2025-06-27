@@ -4,7 +4,7 @@ use std::cell::RefCell;
 
 /// Argument for updating or retrieving the Internet Identity principal
 #[derive(CandidType, Serialize, Deserialize, Clone, Debug)]
-pub enum UpdateIIPrincipal {
+pub enum UpdateIIPrincipalArg {
     /// Set a new Internet Identity principal
     Set(Principal),
     /// Get the current Internet Identity principal
@@ -27,13 +27,13 @@ pub enum UpdateIIPrincipalResult {
 ///
 /// # Returns
 /// * `UpdateIIPrincipalResult` - Result of the operation
-pub fn update_ii_principal(arg: UpdateIIPrincipal) -> UpdateIIPrincipalResult {
+pub fn update_ii_principal(arg: UpdateIIPrincipalArg) -> UpdateIIPrincipalResult {
     match arg {
-        UpdateIIPrincipal::Set(principal) => {
+        UpdateIIPrincipalArg::Set(principal) => {
             set_ii_principal(principal);
             UpdateIIPrincipalResult::Ok(None)
         }
-        UpdateIIPrincipal::Get => {
+        UpdateIIPrincipalArg::Get => {
             let principal = get_ii_principal();
             UpdateIIPrincipalResult::Ok(principal)
         }
