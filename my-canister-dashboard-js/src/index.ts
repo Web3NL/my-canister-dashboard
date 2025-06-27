@@ -14,9 +14,12 @@ export type {
   CheckCyclesBalanceResult,
 } from './dashboard';
 
-// Export candid definitions
-export type { _SERVICE } from '$declarations/my-canister.did.d';
+// Export the backend class for canister interactions
+export { MyCanisterBackend } from './myCanisterBackend';
+
+// Export types and interfaces for the backend
 export type {
+  _SERVICE,
   HttpRequest,
   HttpResponse,
   UpdateAlternativeOriginsArg,
@@ -24,5 +27,4 @@ export type {
   UpdateIIPrincipalArg,
   UpdateIIPrincipalResult,
   WasmStatus,
-} from '../../declarations/my-canister.did.d';
-export { idlFactory } from '../../declarations/my-canister.did.d';
+} from '$declarations/my-canister.did.d';
