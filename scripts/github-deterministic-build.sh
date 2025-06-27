@@ -119,7 +119,7 @@ fi
 
 # Compare WASM hashes
 echo "Verifying WASM hashes..."
-WASM_COMMITTED_HASHES="my-canister-dashboard-rs/checksums/hashes.txt"
+WASM_COMMITTED_HASHES="my-canister-dashboard-rs/wasm/hashes.txt"
 if [ ! -f "$WASM_COMMITTED_HASHES" ]; then
     echo "❌ ERROR: WASM committed hashes file not found: $WASM_COMMITTED_HASHES"
     exit 1
