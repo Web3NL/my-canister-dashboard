@@ -15,4 +15,4 @@ export type {
 } from './dashboard';
 
 // Export candid definitions
-export * from '$candid/my-canister.did.d';
+export * from '$declarations/my-canister.did.d';

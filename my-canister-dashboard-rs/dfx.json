@@ -1,9 +1,9 @@
 {
     "canisters": {
         "my-canister-installer": {
-            "candid": "../candid/my-canister.did",
-            "package": "my-canister-dashboard-rs",
-            "type": "rust"
+            "type": "rust",
+            "package": "my-canister-installer",
+            "candid": "candid/my-canister.did"
         }
     }
 }

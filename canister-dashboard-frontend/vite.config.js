@@ -23,7 +23,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "$candid": path.resolve(__dirname, "../candid"),
+            "$declarations": path.resolve(__dirname, "../declarations"),
         },
     },
 });

@@ -1,0 +1,44 @@
+type HttpRequest = record {
+    method : text;
+    url : text;
+    headers : vec record { text; text };
+    body : vec nat8
+};
+
+type HttpResponse = record {
+    status_code : nat16;
+    headers : vec record { text; text };
+    body : vec nat8
+};
+
+type WasmStatus = record {
+    name : text;
+    version : nat16;
+    memo : opt text
+};
+
+type UpdateIIPrincipal = variant {
+    Set : principal;
+    Get
+};
+
+type UpdateIIPrincipalResult = variant {
+    Ok : principal;
+    Err : text
+};
+
+type UpdateAlternativeOriginsArg = variant {
+    AddAlternativeOrigin : text;
+    RemoveAlternativeOrigin : text
+};
+type UpdateAlternativeOriginsResult = variant {
+    Ok;
+    Err : text
+};
+
+service : {
+    "http_request" : (HttpRequest) -> (HttpResponse) query;
+    "wasm_status" : () -> (WasmStatus) query;
+    "update_ii_principal" : (UpdateIIPrincipal) -> (UpdateIIPrincipalResult);
+    "update_alternative_origins" : (UpdateAlternativeOriginsArg) -> (UpdateAlternativeOriginsResult)
+}

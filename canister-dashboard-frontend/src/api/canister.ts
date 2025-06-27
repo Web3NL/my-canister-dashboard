@@ -4,7 +4,7 @@ import {
   idlFactory,
   UpdateAlternativeOriginsArg,
   UpdateAlternativeOriginsResult,
-} from '$candid/my-canister.did';
+} from '$declarations/my-canister.did';
 
 type CanisterApiService = _SERVICE;
 import { createHttpAgent } from '../utils';

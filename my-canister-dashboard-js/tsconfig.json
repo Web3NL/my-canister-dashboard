@@ -23,7 +23,9 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "$candid/*": ["../candid/*"]
+      "$declarations/*": [
+        "../declarations/*"
+      ]
     }
   },
   "include": [

@@ -24,7 +24,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "$candid/*": ["./../candid/*"]
+      "$declarations/*": [
+        "../declarations/*"
+      ]
     }
   },
   "include": [
