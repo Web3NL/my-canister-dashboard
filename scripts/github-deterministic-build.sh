@@ -75,7 +75,7 @@ cd "$TEMP_WASM_DIR"
     echo "# SHA256 checksums for deterministic build verification"
     echo ""
     echo "## SHA256 checksums:"
-    find . -type f -exec sha256sum {} \; | sort
+    sha256sum *.wasm | sort
 } > "$TEMP_CHECKSUMS_DIR/wasm-hashes.txt"
 
 cd - > /dev/null
