@@ -1,6 +1,6 @@
 {
   "name": "canister-dashboard-frontend",
-  "version": "0.4.0-beta.19",
+  "version": "0.4.0-beta.20",
   "description": "Self-contained dashboard for Internet Computer canisters (BETA - not production ready)",
   "repository": "https://github.com/Web3NL/my-canister-dashboard/tree/main/canister-dashboard-frontend",
   "type": "module",
