@@ -13,7 +13,7 @@ export default defineConfig({
         minify: true,
 
         rollupOptions: {
-            input: path.resolve(__dirname, 'src/canister-dashboard.html'),
+            input: path.resolve(__dirname, 'src/index.html'),
             output: {
                 entryFileNames: '[name].js',
                 chunkFileNames: '[name].js',
