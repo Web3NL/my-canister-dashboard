@@ -2,7 +2,7 @@
 
 set -e
 
-ASSETS_DIR="../assets"
+ASSETS_DIR="./assets"
 CONTAINER_NAME="my-canister-dashboard-unified-builder"
 
 echo "🏗️  Building deterministic frontend and WASM..."
@@ -13,7 +13,7 @@ mkdir -p "$ASSETS_DIR"
 
 # Build using Docker for deterministic builds
 echo "📦 Building unified Docker image..."
-cd .. && docker build --platform linux/amd64 -f my-canister-dashboard-rs/Dockerfile.build -t "$CONTAINER_NAME" . && cd my-canister-dashboard-rs
+docker build --platform linux/amd64 -f Dockerfile -t "$CONTAINER_NAME" .
 
 # Extract all assets from Docker container
 echo "📋 Extracting assets from container..."
@@ -40,8 +40,6 @@ cd "$ASSETS_DIR"
     fi
 } > "hashes.txt"
 
-cd ..
-
 echo ""
 echo "✅ Deterministic unified build complete!"
 echo "📁 Assets: $ASSETS_DIR/"
@@ -50,4 +48,4 @@ echo "   ├── wasm/ (compiled WASM files)"
 echo "   └── hashes.txt (SHA256 checksums)"
 echo ""
 echo "Build verification:"
-cat "assets/hashes.txt"
+cat "$ASSETS_DIR/hashes.txt"

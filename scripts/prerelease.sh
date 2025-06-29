@@ -14,8 +14,8 @@ echo "🦀 Rust lint and format..."
 ./scripts/rust-lint-format.sh
 
 echo "🏗️  Running unified deterministic build..."
-(cd my-canister-dashboard-rs && ./build-deterministic.sh)
+./build-docker.sh
 
 echo "✅ Prerelease build complete!"
-echo "📁 Assets created in my-canister-dashboard-rs/assets/"
-echo "🔐 SHA256 checksums: my-canister-dashboard-rs/assets/hashes.txt"
+echo "📁 Assets created in assets/"
+echo "🔐 SHA256 checksums: assets/hashes.txt"

@@ -23,8 +23,7 @@ echo "📦 Running unified deterministic build..."
 echo "=========================================="
 
 # Run the unified build process
-cd my-canister-dashboard-rs
-./build-deterministic.sh
+./build-docker.sh
 
 # Copy the generated hashes to temp directory for comparison
 cp assets/hashes.txt "$TEMP_BUILD_DIR/github-hashes.txt"
@@ -34,7 +33,7 @@ echo "🔐 Hash Verification"
 echo "===================="
 
 # Check if committed hashes file exists  
-COMMITTED_HASHES="../assets/hashes.txt"
+COMMITTED_HASHES="assets/hashes.txt"
 if [ ! -f "$COMMITTED_HASHES" ]; then
     echo "❌ ERROR: Committed hashes file not found: $COMMITTED_HASHES"
     echo "This should have been created by the release process."
