@@ -28,25 +28,16 @@ cd "$ASSETS_DIR"
 
 # Generate comprehensive hash manifest
 {
-    echo "# SHA256 checksums for deterministic build verification"
-    echo "# Generated on $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-    echo ""
-    
     echo "## Frontend assets:"
     if [ -d "frontend" ]; then
-        find frontend -type f -exec sha256sum {} \; | sort
+        find frontend -type f -exec sha256sum {} \; | sort | sed 's/$/ sha256/'
     fi
     
     echo ""
     echo "## WASM assets:"
     if [ -d "wasm" ]; then
-        find wasm -type f -exec sha256sum {} \; | sort
+        find wasm -type f -exec sha256sum {} \; | sort | sed 's/$/ sha256/'
     fi
-    
-    echo ""
-    echo "## All assets combined:"
-    find . -type f -not -name "hashes.txt" -exec sha256sum {} \; | sort
-    
 } > "hashes.txt"
 
 cd ..
