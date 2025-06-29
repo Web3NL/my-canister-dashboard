@@ -48,7 +48,7 @@ pub use alternative_origins::{
 pub use ii_principal::{UpdateIIPrincipalArg, UpdateIIPrincipalResult, update_ii_principal};
 pub use wasm_status::WasmStatus;
 
-static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
+static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/../../../assets/frontend");
 
 /// Checks if the caller is a controller of the canister.
 ///
@@ -127,7 +127,7 @@ pub fn setup_dashboard_assets(router: &mut AssetRouter) -> Result<(), String> {
     // Certify the dashboard assets (this adds to any existing assets)
     router
         .certify_assets(assets, asset_configs)
-        .map_err(|e| format!("Failed to certify dashboard assets: {:?}", e))?;
+        .map_err(|e| format!("Failed to certify dashboard assets: {e:?}"))?;
 
     // Update the certified data with the new root hash
     set_certified_data(&router.root_hash());

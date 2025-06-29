@@ -98,7 +98,7 @@ fn get_current_alternative_origins() -> Result<AlternativeOrigins, String> {
         .map_err(|_| "Failed to parse ii-alternative-origins as UTF-8")?;
 
     AlternativeOrigins::from_json(contents_str)
-        .map_err(|e| format!("Failed to parse ii-alternative-origins JSON: {}", e))
+        .map_err(|e| format!("Failed to parse ii-alternative-origins JSON: {e}"))
 }
 
 /// Update the ii-alternative-origins asset in the router with new origins
@@ -108,7 +108,7 @@ fn update_alternative_origins_asset(
 ) -> Result<(), String> {
     let updated_json = updated_origins
         .to_json()
-        .map_err(|e| format!("Failed to serialize origins to JSON: {}", e))?;
+        .map_err(|e| format!("Failed to serialize origins to JSON: {e}"))?;
 
     // Delete the existing ii-alternative-origins asset
     router.delete_assets_by_path(["ii-alternative-origins"]);
@@ -125,7 +125,7 @@ fn update_alternative_origins_asset(
     // Certify only the updated asset
     router
         .certify_assets(vec![asset], vec![asset_config])
-        .map_err(|e| format!("Failed to certify assets: {:?}", e))?;
+        .map_err(|e| format!("Failed to certify assets: {e:?}"))?;
 
     // Update the certified data
     set_certified_data(&router.root_hash());

@@ -7,7 +7,7 @@ pub fn create_asset_config(path: &str) -> AssetConfig {
         "ii-alternative-origins" => ii_alternative_origins_config(),
         p if p.ends_with(".js") => dashboard_js_config(p.to_string()),
         p if p.ends_with(".css") => dashboard_css_config(p.to_string()),
-        _ => panic!("Unsupported asset type: {}", path),
+        _ => panic!("Unsupported asset type: {path}"),
     }
 }
 
@@ -37,7 +37,7 @@ fn canister_dashboard_html_config() -> AssetConfig {
 
 /// Create asset config for JS files
 fn dashboard_js_config(path: String) -> AssetConfig {
-    let alias_path = format!("/canister-dashboard/{}", path);
+    let alias_path = format!("/canister-dashboard/{path}");
     AssetConfig::File {
         path,
         content_type: Some("application/javascript".to_string()),
@@ -50,7 +50,7 @@ fn dashboard_js_config(path: String) -> AssetConfig {
 
 /// Create asset config for CSS files
 fn dashboard_css_config(path: String) -> AssetConfig {
-    let alias_path = format!("/canister-dashboard/{}", path);
+    let alias_path = format!("/canister-dashboard/{path}");
     AssetConfig::File {
         path,
         content_type: Some("text/css".to_string()),

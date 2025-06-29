@@ -13,6 +13,9 @@ fi
 
 cd my-canister-dashboard-js
 
+echo "📦 Installing dependencies..."
+npm install
+
 echo "✨ Formatting code..."
 npm run format
 

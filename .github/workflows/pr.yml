@@ -1,13 +1,12 @@
-name: Release
+name: PR Validation
 
 on:
-  push:
-    tags:
-      - '*'
+  pull_request:
+    branches: [main]
 
 jobs:
-  release:
-    name: Release Build and Publish
+  validate:
+    name: PR Validation
     runs-on: ubuntu-latest
     
     steps:
@@ -20,5 +19,5 @@ jobs:
       - name: Run prerelease checks
         run: ./scripts/prerelease.sh
         
-      - name: Run deterministic build and hash verification
+      - name: Run deterministic build verification
         run: ./scripts/github-deterministic-build.sh
