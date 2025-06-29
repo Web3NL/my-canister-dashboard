@@ -3,7 +3,7 @@ use ic_asset_certification::{AssetConfig, AssetEncoding};
 /// Create appropriate asset config based on file path
 pub fn create_asset_config(path: &str) -> AssetConfig {
     match path {
-        "canister-dashboard.html" => canister_dashboard_html_config(),
+        "index.html" => canister_dashboard_html_config(),
         "ii-alternative-origins" => ii_alternative_origins_config(),
         p if p.ends_with(".js") => dashboard_js_config(p.to_string()),
         p if p.ends_with(".css") => dashboard_css_config(p.to_string()),
@@ -23,10 +23,10 @@ pub fn ii_alternative_origins_config() -> AssetConfig {
     }
 }
 
-/// Create asset config for canister-dashboard.html
+/// Create asset config for index.html
 fn canister_dashboard_html_config() -> AssetConfig {
     AssetConfig::File {
-        path: "canister-dashboard.html".to_string(),
+        path: "index.html".to_string(),
         content_type: Some("text/html".to_string()),
         headers: vec![],
         fallback_for: vec![],
