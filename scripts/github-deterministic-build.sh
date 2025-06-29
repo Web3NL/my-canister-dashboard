@@ -57,8 +57,4 @@ else
 fi
 
 echo ""
-echo "🎉 Success! Deterministic build verified!"
-echo "=========================================="
-echo "✅ Unified build is reproducible"
 echo "✅ All checksums match committed hashes"
-echo "✅ Build integrity confirmed"
