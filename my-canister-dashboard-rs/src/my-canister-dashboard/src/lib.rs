@@ -48,7 +48,7 @@ pub use alternative_origins::{
 pub use ii_principal::{UpdateIIPrincipalArg, UpdateIIPrincipalResult, update_ii_principal};
 pub use wasm_status::WasmStatus;
 
-static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/../../assets/frontend");
+static ASSETS_DIR: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/../../../assets/frontend");
 
 /// Checks if the caller is a controller of the canister.
 ///
