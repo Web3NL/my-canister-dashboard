@@ -2,29 +2,61 @@
 
 set -e
 
-WASM_DIR="./wasm"
+ASSETS_DIR="./assets"
+CONTAINER_NAME="my-canister-dashboard-unified-builder"
 
-echo "🏗️  Building deterministic WASM..."
+echo "🏗️  Building deterministic frontend and WASM..."
+
+# Clean previous builds
+rm -rf "$ASSETS_DIR"
+mkdir -p "$ASSETS_DIR"
 
 # Build using Docker for deterministic builds
-CONTAINER_NAME="my-canister-dashboard-rs-builder"
+echo "📦 Building unified Docker image..."
 cd .. && docker build --platform linux/amd64 -f my-canister-dashboard-rs/Dockerfile.build -t "$CONTAINER_NAME" . && cd my-canister-dashboard-rs
 
-# Extract WASM files from Docker container
-echo "📋 Extracting WASM files from container..."
+# Extract all assets from Docker container
+echo "📋 Extracting assets from container..."
 TEMP_CONTAINER=$(docker create "$CONTAINER_NAME")
-docker cp "$TEMP_CONTAINER:/app/my-canister-dashboard-rs/wasm/." "$WASM_DIR/"
+docker cp "$TEMP_CONTAINER:/app/assets/." "$ASSETS_DIR/"
 docker rm "$TEMP_CONTAINER"
 
-# Generate hash manifest in the wasm directory
-cd "$WASM_DIR"
-sha256sum *.wasm > "hashes.txt"
+# Generate unified hash manifest
+echo "🔍 Calculating file hashes..."
+cd "$ASSETS_DIR"
+
+
+# Generate comprehensive hash manifest
+{
+    echo "# SHA256 checksums for deterministic build verification"
+    echo "# Generated on $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+    echo ""
+    
+    echo "## Frontend assets:"
+    if [ -d "frontend" ]; then
+        find frontend -type f -exec sha256sum {} \; | sort
+    fi
+    
+    echo ""
+    echo "## WASM assets:"
+    if [ -d "wasm" ]; then
+        find wasm -type f -exec sha256sum {} \; | sort
+    fi
+    
+    echo ""
+    echo "## All assets combined:"
+    find . -type f -not -name "hashes.txt" -exec sha256sum {} \; | sort
+    
+} > "hashes.txt"
+
 cd ..
 
 echo ""
-echo "✅ Deterministic WASM build complete!"
-echo "📁 WASM files: $WASM_DIR/"
-echo "🔐 Hashes: $WASM_DIR/hashes.txt"
+echo "✅ Deterministic unified build complete!"
+echo "📁 Assets: $ASSETS_DIR/"
+echo "   ├── frontend/ (built frontend assets)"
+echo "   ├── wasm/ (compiled WASM files)"
+echo "   └── hashes.txt (SHA256 checksums)"
 echo ""
 echo "Build verification:"
-cat "$WASM_DIR/hashes.txt"
+cat "$ASSETS_DIR/hashes.txt"
