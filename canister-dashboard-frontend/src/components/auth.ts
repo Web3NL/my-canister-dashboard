@@ -63,8 +63,12 @@ class AuthManager {
 
     this.authClient!.login({
       identityProvider,
-      onSuccess: () => window.location.reload(),
-      onError: () => window.location.reload(),
+      onSuccess: () => {
+        window.location.reload();
+      },
+      onError: () => {
+        window.location.reload();
+      },
     });
   }
 

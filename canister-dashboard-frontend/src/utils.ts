@@ -7,13 +7,13 @@ export function inferCanisterIdFromLocation(): Principal {
   const hostname = window.location.hostname;
 
   // Pattern for localhost: u6s2n-gx777-77774-qaaba-cai.localhost
-  const localhostMatch = hostname.match(/^([a-z0-9-]+)\.localhost$/);
+  const localhostMatch = /^([a-z0-9-]+)\.localhost$/.exec(hostname);
   if (localhostMatch) {
     return Principal.fromText(localhostMatch[1]);
   }
 
   // Pattern for IC: u6s2n-gx777-77774-qaaba-cai.icp0.io
-  const icMatch = hostname.match(/^([a-z0-9-]+)\.icp\d+\.io$/);
+  const icMatch = /^([a-z0-9-]+)\.icp\d+\.io$/.exec(hostname);
   if (icMatch) {
     return Principal.fromText(icMatch[1]);
   }

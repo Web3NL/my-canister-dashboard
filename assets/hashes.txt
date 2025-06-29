@@ -1,8 +1,8 @@
 ## Frontend assets:
-1a22cbd5a8212527b1f827c3992dd3abd8046e7bcb29206926fb721385ad7919  frontend/index.js sha256
+1dbbae8cb4da7e001630f6ec14be44d4b90bc8b2441d4ab76764c97ac82af599  frontend/index.js sha256
 427eb83841579ad301ee087733f4ccf80e8fe5705f3613dea8a4867818f16f42  frontend/index.html sha256
 c8c69bdc4e2b286fbd5837cc8281089398153ea718574a97c1495acd125ef789  frontend/style.css sha256
 fdf2a6c555609a7aae6bc6ca16580b764f307bf1d0bc76deb2c3f5af4c4d0ea3  frontend/ii-alternative-origins sha256
 
 ## WASM assets:
-03573dc11c7bd9a0a2dfc44cf7d4da85b7993898031c3ae4b01e5be46b67cf19  wasm/my-canister-installer.wasm sha256
+8b1c3c5891afdfe8b0d51b3c2c7e97b5f801c9ccb094227e9bc5b5f82ca2ac78  wasm/my-canister-installer.wasm sha256

@@ -21,6 +21,7 @@ export class CanisterApi {
     const agent = await createHttpAgent();
     const canisterId = inferCanisterIdFromLocation();
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-unsafe-argument
     this.canisterApi = Actor.createActor(idlFactory, {
       agent,
       canisterId,
@@ -30,6 +31,7 @@ export class CanisterApi {
   async updateAlternativeOrigins(
     arg: UpdateAlternativeOriginsArg
   ): Promise<UpdateAlternativeOriginsResult> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     return await this.canisterApi!.update_alternative_origins(arg);
   }
 }

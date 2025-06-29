@@ -16,6 +16,7 @@ export class ManagementApi {
     const icManagement = await this.managmentApi();
     const canisterId = inferCanisterIdFromLocation();
 
-    return await icManagement!.canisterStatus(canisterId);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return await icManagement.canisterStatus(canisterId!);
   }
 }
