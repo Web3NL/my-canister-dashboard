@@ -19,7 +19,7 @@ RUN npm run build
 RUN chown -R nodejs:nodejs /app/canister-dashboard-frontend/dist
 
 # Stage 2: Build Rust and combine assets
-FROM rust:1.87.0 AS rust-builder
+FROM rust:1.88.0 AS rust-builder
 
 # Setup Rust toolchain
 RUN rustup target add wasm32-unknown-unknown

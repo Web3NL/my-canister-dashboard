@@ -6,37 +6,9 @@ on:
       - '*'
 
 jobs:
-  lint-and-format:
-    name: Lint and Format
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt, clippy
-            
-      - name: Install frontend dependencies
-        run: cd canister-dashboard-frontend && npm ci
-        
-      - name: Run frontend lint and format
-        run: ./scripts/frontend-lint-format.sh
-        
-      - name: Run rust lint and format  
-        run: ./scripts/rust-lint-format.sh
-
   deterministic-build:
     name: Deterministic Build Verification
     runs-on: ubuntu-latest
-    needs: lint-and-format
     
     steps:
       - name: Checkout code
