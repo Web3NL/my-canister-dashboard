@@ -13,6 +13,9 @@ fi
 
 cd canister-dashboard-frontend
 
+echo "📦 Installing dependencies..."
+npm install
+
 echo "🔍 Running security audit and fixing issues..."
 npm run audit:fix
 npm run audit
