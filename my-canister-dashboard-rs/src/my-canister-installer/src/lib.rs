@@ -49,9 +49,9 @@ fn http_request(request: HttpRequest) -> HttpResponse {
 }
 
 #[query(guard = "only_canister_controllers_guard")]
-fn get_wasm_status() -> WasmStatus {
+fn wasm_status() -> WasmStatus {
     WasmStatus {
-        name: "my-canister-installer".to_string(),
+        name: "My Hello World".to_string(),
         version: 1,
         memo: Some(
             "Self-contained canister dashboard. github.com/Web3NL/my-canister-dashboard"
