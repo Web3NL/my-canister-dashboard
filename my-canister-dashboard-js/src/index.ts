@@ -14,17 +14,13 @@ export type {
   CheckCyclesBalanceResult,
 } from './dashboard';
 
-// Export canister backend utilities with sensible names
-export {
-  idlFactory as MyCanisterIdlFactory,
-  createActor as createMyCanisterActor,
-  my_canister as myCanisterBackend,
-} from '$declarations/index.js';
+// Export canister backend class and utilities
+export { MyCanisterBackend, createMyCanisterActor } from './actor';
 
 // Export types and interfaces for the backend
-export type { CreateActorOptions as MyCanisterActorOptions } from '$declarations/index.d';
 export type {
-  _SERVICE as MyCanisterService,
+  MyCanisterBackendConfig,
+  MyCanisterService,
   HttpRequest,
   HttpResponse,
   UpdateAlternativeOriginsArg,
@@ -32,4 +28,4 @@ export type {
   UpdateIIPrincipalArg,
   UpdateIIPrincipalResult,
   WasmStatus,
-} from '$declarations/my-canister.did.d';
+} from './actor';
