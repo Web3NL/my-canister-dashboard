@@ -3,7 +3,7 @@
 export const identityProvider =
   import.meta.env.VITE_IDENTITY_PROVIDER ||
   'https://identity.internetcomputer.org';
- 
+
 export const host = import.meta.env.VITE_HOSTNAME || 'https://icp0.io';
 
 // Timer configuration
