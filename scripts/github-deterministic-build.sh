@@ -33,8 +33,8 @@ echo ""
 echo "🔐 Hash Verification"
 echo "===================="
 
-# Check if committed hashes file exists
-COMMITTED_HASHES="assets/hashes.txt"
+# Check if committed hashes file exists  
+COMMITTED_HASHES="../assets/hashes.txt"
 if [ ! -f "$COMMITTED_HASHES" ]; then
     echo "❌ ERROR: Committed hashes file not found: $COMMITTED_HASHES"
     echo "This should have been created by the release process."

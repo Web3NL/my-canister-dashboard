@@ -32,16 +32,19 @@ WORKDIR /app
 # Copy Rust project
 COPY my-canister-dashboard-rs/ ./my-canister-dashboard-rs/
 
-# Copy frontend assets from previous stage
+# Copy frontend assets from previous stage and create assets structure BEFORE Rust compilation
 COPY --from=frontend-builder --chown=builder:builder /app/canister-dashboard-frontend/dist ./frontend-assets/
 
-# Build Rust crate
+# Create unified assets structure with frontend assets
+RUN mkdir -p /app/assets/frontend && \
+    cp -r ./frontend-assets/* /app/assets/frontend/
+
+# Build Rust crate (now that assets exist)
 WORKDIR /app/my-canister-dashboard-rs
 RUN cargo build --target wasm32-unknown-unknown --release --package my-canister-installer --locked
 
-# Create unified assets structure
-RUN mkdir -p /app/assets/frontend /app/assets/wasm && \
-    cp -r ../frontend-assets/* /app/assets/frontend/ && \
+# Add WASM to assets structure
+RUN mkdir -p /app/assets/wasm && \
     cp target/wasm32-unknown-unknown/release/my_canister_installer.wasm /app/assets/wasm/my-canister-installer.wasm
 
 # Change ownership of final assets

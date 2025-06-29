@@ -2,7 +2,7 @@
 
 set -e
 
-ASSETS_DIR="./assets"
+ASSETS_DIR="../assets"
 CONTAINER_NAME="my-canister-dashboard-unified-builder"
 
 echo "🏗️  Building deterministic frontend and WASM..."
