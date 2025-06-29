@@ -16,6 +16,7 @@ export type {
 
 // Export the backend class for canister interactions
 export { MyCanisterBackend } from './myCanisterBackend';
+export type { MyCanisterBackendConfig } from './myCanisterBackend';
 
 // Export types and interfaces for the backend
 export type {

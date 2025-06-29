@@ -12,6 +12,11 @@ import type {
 } from '$declarations/my-canister.did.d';
 import { Principal } from '@dfinity/principal';
 
+export interface MyCanisterBackendConfig {
+  canisterId: Principal;
+  agent: HttpAgent;
+}
+
 export class MyCanisterBackend {
   private canisterInstaller: ActorSubclass<_SERVICE>;
 
@@ -19,11 +24,11 @@ export class MyCanisterBackend {
     this.canisterInstaller = canisterInstaller;
   }
 
-  static create(canisterId: Principal, agent: HttpAgent): MyCanisterBackend {
+  static create(config: MyCanisterBackendConfig): MyCanisterBackend {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const canisterInstaller = Actor.createActor<_SERVICE>(idlFactory, {
-      agent,
-      canisterId,
+      agent: config.agent,
+      canisterId: config.canisterId,
     });
     return new MyCanisterBackend(canisterInstaller);
   }
