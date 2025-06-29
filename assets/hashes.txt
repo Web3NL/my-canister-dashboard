@@ -5,4 +5,4 @@ c8c69bdc4e2b286fbd5837cc8281089398153ea718574a97c1495acd125ef789  frontend/style
 fdf2a6c555609a7aae6bc6ca16580b764f307bf1d0bc76deb2c3f5af4c4d0ea3  frontend/ii-alternative-origins sha256
 
 ## WASM assets:
-75fe002c1f41aac924ff0fe811d75ae58824e4d48bb19cab4681c2576ecf0dd0  wasm/my-canister-installer.wasm sha256
+1a14bab62c242afc11da363e2483bf7582097acc2820a82acd09a6eb332ae60c  wasm/my-canister-installer.wasm sha256
