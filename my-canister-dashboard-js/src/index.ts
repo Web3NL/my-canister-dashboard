@@ -15,10 +15,10 @@ export type {
 } from './dashboard';
 
 // Export canister backend utilities with sensible names
-export { 
-  idlFactory as MyCanisterIdlFactory, 
-  createActor as createMyCanisterActor, 
-  my_canister as myCanisterBackend 
+export {
+  idlFactory as MyCanisterIdlFactory,
+  createActor as createMyCanisterActor,
+  my_canister as myCanisterBackend,
 } from '$declarations/index.js';
 
 // Export types and interfaces for the backend
